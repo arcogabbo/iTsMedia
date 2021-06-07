@@ -29,15 +29,15 @@ app.set('views', path.join(__dirname, 'view/'));
 
 app.listen(PORT, () => {
  	console.log(`⚡️: Server is running at https://localhost:${PORT}`);
-	files = init();
+	//files = init();
 })
 
 //every time the server is launched we have to read the stored files
 function init()
 {
-	var fileList :string[];//an array that contains all the file's name on the server
-	shell.ls(__dirname + "/files/").forEach(function(file, fileList){fileList.push(file)})
-	return fileList!;
+	//	var fileList :string[];//an array that contains all the file's name on the server
+	//shell.ls(__dirname + "/files/").forEach(function(file, fileList){fileList.push(file)})
+	//return fileList!;
 }
 
 export {files}
