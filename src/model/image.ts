@@ -21,7 +21,7 @@ export class Image extends Media{
 	//to extend
 }
 
-export function parse(file: ef.UploadedFile): Image{
-	return new Image(file,/*function for random id*/"1")
+export function parse(file: ef.UploadedFile | string, id: string): Image{
+	return new Image(file,id)
 }
 
