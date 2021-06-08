@@ -17,7 +17,7 @@
 <div class="container">
 	<h1>Modify your image</h1>
 	<p id="fileName" class="hide"><%=fileName%></p>
-	<img id="toModify" src="<%=fileName%>">
+	<img id="toModify" src="/files/<%=fileName%>">
 
 	<h1>Resize input</h1>
 	<input type="number" id="sizeX" placeholder="size X">
@@ -26,7 +26,7 @@
 
 	<h1>Cropping input</h1>
 	<input type="number" id="cropX" placeholder="crop X">
-	<input type="number" id="cropy" placeholder="crop Y">
+	<input type="number" id="cropY" placeholder="crop Y">
 	<input type="number" id="posX" placeholder="pos X">
 	<input type="number" id="posY" placeholder="pos Y">
 	<button id="crop">Crop</button>

@@ -9,14 +9,12 @@ export class Media{
 	sizeInBytes: number
 	file: ef.UploadedFile | undefined
 
-	constructor(file: ef.UploadedFile | string, id: string){
+	constructor(file: ef.UploadedFile | string, id: string, extension: string){
 		if(typeof(file) === "string"){
-			let split=id.split(".")
-			this.name=split[0]
-			this.ext=check(split[1])
+			this.name=id
+			this.ext=check(extension)
 			try {
-				//path + id(name+ext)
-			  	const f = fs.statSync(file+id)
+				const f = fs.statSync(__dirname + "/" +  file+id + "." + extension)
 			  	this.sizeInBytes=f.size
 			  	this.file=undefined
 			} catch (err) {
@@ -27,9 +25,8 @@ export class Media{
 			  this.file=undefined
 			}
 		}else{
-			let split=file.name.split('.')
 			this.name= id
-			this.ext=check(split[1])
+			this.ext=check(extension)
 			this.sizeInBytes=file.size
 			this.file=file
 		}
@@ -38,7 +35,7 @@ export class Media{
 	save():void{
 		//saving file
 		if(typeof(this.ext) != undefined && this.file != undefined){
-			const uploadPath = __dirname + '../public/files/' + this.name +'.'+ this.ext;
+			const uploadPath = __dirname + '/../public/files/' + this.name +'.'+ this.ext;
 			this.file.mv(uploadPath, (err):void=>{
 				if(err)
 					throw err

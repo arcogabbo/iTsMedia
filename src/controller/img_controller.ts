@@ -1,10 +1,12 @@
 import {Router} from "express";
-import parse from "../model/image";
+import {parse} from "../model/image";
 
 function updateImg(req, res)
 {
-	let img = parse("../public/files/", req.body.fileName);
-	switch (req.body.id)
+	let name = req.body.fileName.split(".");
+	let img = parse("../public/files/", name[0], name[1]);
+	console.log("update img" + req.body.id)
+	switch (parseInt(req.body.id))
 	{
 		case 0:
 			//img.resize();

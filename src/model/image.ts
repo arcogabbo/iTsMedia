@@ -5,9 +5,9 @@ export class Image extends Media{
 	//width: number
 	//height: number
  
-	constructor(f: ef.UploadedFile | string, id: string){
+	constructor(f: ef.UploadedFile | string, id: string, extension: string){
 		//media constructor
-		super(f,id)
+		super(f,id, extension)
 	}
 
 	crop(){
@@ -21,7 +21,7 @@ export class Image extends Media{
 	//to extend
 }
 
-export function parse(file: ef.UploadedFile | string, id: string): Image{
-	return new Image(file,id)
+export function parse(file: ef.UploadedFile | string, id: string, extension: string): Image{
+	return new Image(file,id, extension)
 }
 

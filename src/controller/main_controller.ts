@@ -1,6 +1,6 @@
 import { Router } from "express";
 import session from "express-session";
-import Media from "../model/media";
+import {Media} from "../model/media";
 //this function try to upload the file in the "files" directory
 //then if succed will render to the page where the user can modify it
 function modifyPage(req, res)
@@ -11,13 +11,20 @@ function modifyPage(req, res)
 		return res.status(400).send("No file uploaded");
 	let toUp = req.files.toUpload;
 	if(toUp.size > 8*1024 * 1024)
+	{
 		res.status(200).send("file size must be < 8MB");
-	toUp.name = Math.floor(Math.random() * 1000000);
-	let file = new Media(toUp, toUp.name);
+		return false;
+	}
+
+	let name = toUp.name.split(".");
+
+	//et newName= Math.floor(Math.random() * 1000000).toString();
+	let newName = toUp.md5;
+	console.log(newName);
+	let file = new Media(toUp, newName, name[1]);
 	file.save();
-	toUp.name += "." + file.ext;
 	//depending on the file type the user is redirected to a page
-	let obj = {fileName: toUp.name}
+	let obj = {fileName: newName + "." + name[1]}
 	switch (file.ext)
 	{
 		case "jpeg":
@@ -30,9 +37,9 @@ function modifyPage(req, res)
 			break;*/
 		default:
 			res.status(400).send("unsupported file");
-			break;
+			break;		
+	}
 }
-
 //this function render to the home page
 function home(req, res) :boolean
 {

@@ -1,51 +1,47 @@
-var resize = document.getElementById("resize")!.addEventListener("click", resizeIMG);
-var crop = document.getElementById("crop")!.addEventListener("click", cropIMG);
+var resize = document.getElementById("resize")!.addEventListener("click", function(){updateIMG(0)});
+var crop = document.getElementById("crop")!.addEventListener("click", function(){updateIMG(1)});
 
-function resizeIMG(id)
+function updateIMG(id)
 {
-	if(id != 0 || id != 1)
+	if(id < 0 && id > 1)
 		return false;
 
-	let dimX = (<HTMLInputElement> document.getElementById("sizeX")!).value;
-	let dimY = (<HTMLInputElement> document.getElementById("sizeY")!).value;
-	if(!(dimX && dimY) && id == 0)
+	let dimX = (<HTMLInputElement> document.getElementById("sizeX")!);
+	let dimY = (<HTMLInputElement> document.getElementById("sizeY")!);
+	if(id == 0 && !(dimX.value && dimY.value))
 		return false;
 
-	let cropX = (<HTMLInputElement> document.getElementById("cropX"))!.value;
-	let cropY = (<HTMLInputElement> document.getElementById("cropY"))!.value;
-	let posX = (<HTMLInputElement> document.getElementById("posX"))!.value;		
-	let posY = (<HTMLInputElement> document.getElementById("posY"))!.value;
-	if(!(cropX && cropY && posX && posY) && id == 1)
+	let cropX = (<HTMLInputElement> document.getElementById("cropX"))!;
+	let cropY = (<HTMLInputElement> document.getElementById("cropY"))!;
+	let posX = (<HTMLInputElement> document.getElementById("posX"))!;		
+	let posY = (<HTMLInputElement> document.getElementById("posY"))!;
+	if(id == 1 && !(cropX.value && cropY.value && posX.value && posY.value))
 		return false;
 
-	let fileName = (<HTMLElement> document.getElementById("fileName")!).innerHTML;
+	let fileName = document.getElementById("fileName")!.innerHTML;
+	let data = {id: id, fileName: fileName}
+	//resize
+	if(id == 0)
+	{
+		Object.assign(data, {X: dimX.value});
+		Object.assign(data, {Y: dimY.value});
+	}
+	else if(id == 1)
+	{
+		Object.assign(data, {cropX: cropX.value});
+		Object.assign(data, {cropY: cropY.value});
+		Object.assign(data, {posX: posX.value});
+		Object.assign(data, {posY: posY.value});	
+	}
+	console.log(fileName);
 	
 	let request =
 		<any>{
 			url: "/img",
 			method: "put",
-			data: 
-			{
-				id: id,
-				//fileName is needed to select the correct file
-				fileNmae: fileName,
-				X: dimX, 
-				Y: dimY,
-				cropX: cropX,
-				cropY: cropY,
-				posX: posX,
-				posY: posY
-			},
+			data:data, 
 			success: function(){console.log("success")},
 			error: function(){console.log("erroreee")}
 		}
 	$.ajax(request);
-}
-
-function cropIMG()
-{
-	let request =
-		{
-			
-		}
 }
