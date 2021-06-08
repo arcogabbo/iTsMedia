@@ -15,7 +15,7 @@ export class Media{
 			this.name=split[0]
 			this.ext=check(split[1])
 			try {
-				//path + id
+				//path + id(name+ext)
 			  	const f = fs.statSync(file+id)
 			  	this.sizeInBytes=f.size
 			  	this.file=undefined
@@ -38,7 +38,7 @@ export class Media{
 	save():void{
 		//saving file
 		if(typeof(this.ext) != undefined && this.file != undefined){
-			const uploadPath = __dirname + '../public/files/' + this.name + this.ext;
+			const uploadPath = __dirname + '../public/files/' + this.name +'.'+ this.ext;
 			this.file.mv(uploadPath, (err):void=>{
 				if(err)
 					throw err
