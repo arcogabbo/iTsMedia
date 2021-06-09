@@ -22,7 +22,6 @@ function modifyPage(req, res)
 
 	//et newName= Math.floor(Math.random() * 1000000).toString();
 	let newName = toUp.md5;
-	console.log(newName);
 	let file = new Media(toUp, newName, name[1]);
 	file.save();
 	//depending on the file type the user is redirected to a page
