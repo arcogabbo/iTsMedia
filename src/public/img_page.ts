@@ -19,7 +19,7 @@ function updateIMG(id)
 		return false;
 
 	let fileName = document.getElementById("fileName")!.innerHTML;
-	let data = {id: id, fileName: fileName}
+	let data = {id, fileName}
 	//resize
 	if(id == 0)
 	{

@@ -11,9 +11,10 @@ function modifyPage(req, res)
 	if(!req.files)
 		return res.status(400).send("No file uploaded");
 	let toUp = req.files.toUpload;
-	if(toUp.size > 8*1024 * 1024)
+	if(toUp.size >= 8*1024 * 1024)
 	{
-		res.status(200).send("file size must be < 8MB");
+		//413 -> Payload too large
+		res.status(413).send("File size must be <= 8MB");
 		return false;
 	}
 
@@ -51,8 +52,8 @@ function home(req, res) :boolean
 function downloadFile(req, res)
 {
 	let file = __dirname + "/../public/files/" + req.params.filename;
-	console.log(file);
-	if(!fs.existsSync(file))
+	//md5 is 32 chars wide but we always download the _edit one -> 37 chars
+	if(req.params.filename.length < 37 || !fs.existsSync(file))
 		return res.status(404).send("file not found");
 	
 	res.download(file);
