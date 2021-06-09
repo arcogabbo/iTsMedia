@@ -12,10 +12,12 @@ function updateImg(req, res)
 			console.log('resize '+typeof(req.body.X))
 			img.resize(parseInt(req.body.X), parseInt(req.body.Y));
 			console.log("resize");
+			res.status(200).json({name: img.name  + "_edit" + "." + img.ext});
 			break;
 		case 1:
 			img.crop(parseInt(req.body.posX), parseInt(req.body.posY), parseInt(req.body.cropX),parseInt(req.body.cropY));
 			console.log("crop");
+			res.status(200).json({name: img.name + "_edit" + "." + img.ext});
 			break;
 	}
 }

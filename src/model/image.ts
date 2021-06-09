@@ -1,6 +1,6 @@
-import {extension, Media} from "./media"
-import type ef from "express-fileupload"
-import gm from "gm"
+import {extension, Media} from "./media";
+import type ef from "express-fileupload";
+import gm from "gm";
 
 export class Image extends Media{
 	//width: number
@@ -13,9 +13,9 @@ export class Image extends Media{
 
 	crop(posX:number, posY:number, dimX:number, dimY:number){
 		//call the wrapper to crop the image
-		gm(this.name+'.'+this.ext)
-		.crop(posX,posY,dimX,dimY)
-		.write(this.name+'_edit'+'.'+this.ext, (err)=>{
+		gm(__dirname + "/../public/files/" + this.name+'.'+this.ext)
+		.crop(dimX,dimY, posX, posY)
+		.write(__dirname + "/../public/files/" + this.name+'_edit'+'.'+this.ext, (err)=>{
 			if(err){
 				console.log('ERRORE SALVATAGGIO EDIT CROP: '+err)
 				throw err
@@ -24,9 +24,9 @@ export class Image extends Media{
 	}
 
 	resize(dimX:number, dimY:number){
-		gm(this.name+'.'+this.ext)
-		.crop(dimX,dimY)
-		.write(this.name+'_edit'+'.'+this.ext, (err)=>{
+		gm(__dirname +"/../public/files/" + this.name+'.'+this.ext)
+		.resizeExact(dimX,dimY)
+		.write(__dirname + "/../public/files/" + this.name+'_edit'+'.'+this.ext, (err)=>{
 			if(err){
 				console.log('ERRORE SALVATAGGIO EDIT RESIZE: '+err)
 				throw err

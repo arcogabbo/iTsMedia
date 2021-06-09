@@ -6,4 +6,6 @@ const router=Router()
 router.get("/", mainController.home);
 //rendering to the page where the user can modify the image
 router.post("/file", mainController.modifyPage);
+
+router.get("/download/:filename", mainController.downloadFile);
 export default router;

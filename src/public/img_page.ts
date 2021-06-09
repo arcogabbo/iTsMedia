@@ -33,14 +33,23 @@ function updateIMG(id)
 		Object.assign(data, {posX: posX.value});
 		Object.assign(data, {posY: posY.value});	
 	}
-	console.log(fileName);
 	
 	let request =
 		<any>{
 			url: "/img",
 			method: "put",
 			data:data, 
-			success: function(){console.log("success")},
+			success: function(result)
+			{
+				if(!document.getElementById("link"))
+				{
+					let a = (<HTMLAnchorElement> document.createElement("A"));
+					a.href = "/download/" + result.name;
+					a.innerHTML = "download your file";
+					a.id = "link";	
+					document.getElementById("anchor")!.appendChild(a);
+				}
+			},
 			error: function(){console.log("erroreee")}
 		}
 	$.ajax(request);

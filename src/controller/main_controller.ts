@@ -1,6 +1,7 @@
 import { Router } from "express";
 import session from "express-session";
 import {Media} from "../model/media";
+import fs from "fs";
 //this function try to upload the file in the "files" directory
 //then if succed will render to the page where the user can modify it
 function modifyPage(req, res)
@@ -47,4 +48,14 @@ function home(req, res) :boolean
 	return true;
 }
 
-export {modifyPage, home}
+function downloadFile(req, res)
+{
+	let file = __dirname + "/../public/files/" + req.params.filename;
+	console.log(file);
+	if(!fs.existsSync(file))
+		return res.status(404).send("file not found");
+	
+	res.download(file);
+}
+
+export {downloadFile, modifyPage, home}
