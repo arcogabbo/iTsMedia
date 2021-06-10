@@ -1,3 +1,4 @@
 node_modules/*
-src/files/*
-src/*.swp
+public/files/*
+public/materialize/*
+*.swp
