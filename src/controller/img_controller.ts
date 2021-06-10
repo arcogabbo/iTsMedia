@@ -19,6 +19,14 @@ function updateImg(req, res)
 			img.crop(parseInt(req.body.posX), parseInt(req.body.posY), parseInt(req.body.cropX),parseInt(req.body.cropY));
 			res.status(200).json({name: img.name + "_edit" + "." + img.ext});
 			break;
+		case 2:
+			//blur
+			//if radius is not provided or radius is outside planned range
+			if(!req.body.radius || (req.body.radius < 0 || req.body.radius > 100)) return res.status(400).send("Wrong radius value")
+			if(!req.body.sigma || (req.body.sigma < 0 || req.body.sigma > 100)) return res.status(400).send("Wrong sigma value")
+			img.blur(req.body.radius, req.body.sigma)
+			res.status(200).json({name: img.name + "_edit" + "." + img.ext})
+			break;
 		default:
 			res.status(400).send("Action not implemented")
 	}

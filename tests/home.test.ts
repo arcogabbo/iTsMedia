@@ -21,7 +21,7 @@ describe("GET", () => {
 })
 
 describe("POST", () => {
-	it('File url without uploading is not possible',async()=>{
+	it('File url without uploading should not be possible',async()=>{
 		const result=await request.post('/file')
 		expect(result.statusCode).toEqual(400)
 	})

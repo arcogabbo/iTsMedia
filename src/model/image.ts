@@ -34,6 +34,17 @@ export class Image extends Media{
 		})
 	}
 
+	blur(radius:number,sigma:number){
+		gm(__dirname +"/../../public/files/" + this.name+'.'+this.ext)
+		.blur(radius,sigma)
+		.write(__dirname + "/../../public/files/" + this.name+'_edit'+'.'+this.ext, (err)=>{
+			if(err){
+				console.log('ERRORE SALVATAGGIO EDIT BLUR: '+err)
+				throw err
+			}
+		})
+	}
+
 	//to extend
 }
 
