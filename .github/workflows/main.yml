@@ -13,5 +13,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm install
-      - run: mkdir src/public/files
+      - run: mkdir public/files
       - run: npm run test
