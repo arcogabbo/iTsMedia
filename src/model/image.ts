@@ -13,9 +13,9 @@ export class Image extends Media{
 
 	crop(posX:number, posY:number, dimX:number, dimY:number){
 		//call the wrapper to crop the image
-		gm(__dirname + "/../public/files/" + this.name+'.'+this.ext)
+		gm(__dirname + "/../../public/files/" + this.name+'.'+this.ext)
 		.crop(dimX,dimY, posX, posY)
-		.write(__dirname + "/../public/files/" + this.name+'_edit'+'.'+this.ext, (err)=>{
+		.write(__dirname + "/../../public/files/" + this.name+'_edit'+'.'+this.ext, (err)=>{
 			if(err){
 				console.log('ERRORE SALVATAGGIO EDIT CROP: '+err)
 				throw err
@@ -24,9 +24,9 @@ export class Image extends Media{
 	}
 
 	resize(dimX:number, dimY:number){
-		gm(__dirname +"/../public/files/" + this.name+'.'+this.ext)
+		gm(__dirname +"/../../public/files/" + this.name+'.'+this.ext)
 		.resizeExact(dimX,dimY)
-		.write(__dirname + "/../public/files/" + this.name+'_edit'+'.'+this.ext, (err)=>{
+		.write(__dirname + "/../../public/files/" + this.name+'_edit'+'.'+this.ext, (err)=>{
 			if(err){
 				console.log('ERRORE SALVATAGGIO EDIT RESIZE: '+err)
 				throw err

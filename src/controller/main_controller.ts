@@ -44,13 +44,13 @@ function modifyPage(req, res)
 //this function render to the home page
 function home(req, res) :boolean
 {
-	res.status(200).sendFile("mainPage.html", {root: "src/public"});
+	res.status(200).sendFile("mainPage.html", {root: "public"});
 	return true;
 }
 
 function downloadFile(req, res)
 {
-	let file = __dirname + "/../public/files/" + req.params.filename;
+	let file = __dirname + "/../../public/files/" + req.params.filename;
 	//md5 is 32 chars wide but we always download the _edit one -> 37 chars
 	if(req.params.filename.length < 37 || !fs.existsSync(file))
 		return res.status(404).send("file not found");
