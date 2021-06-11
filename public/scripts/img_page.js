@@ -63,9 +63,12 @@ function updateIMG(id) {
                 document.getElementById("anchor").appendChild(a);
             }
 
-            //preview of image
-            $('#editPreview').remove()
-            $("#preview-block").append(`<img id="editPreview" class="responsive-img hoverable" src="/files/${result.name+'?t='+new Date().getTime()}">`)
+            setTimeout(function(){ 
+                $("#editPreview").attr('src','/files/'+result.name+'?t=' + new Date().getTime())
+
+                if($('#editPreview').hasClass('hide'))
+                    $('#editPreview').removeClass('hide')
+            }, 3000);
         },
         error: function (xhr, status, err) { console.log("errore: "+err); }
     };
