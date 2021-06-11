@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	
+	<link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css">
+	<script src="https://unpkg.com/jcrop"></script>
+
+	<title>Image edit</title>
+</head>
+<body class="blue-grey darken-4 white-text">
+	<div class="container">
+		<span class="flow-text">Edit your audio</span><br>
+		<p id="fileName" class="hide"><%=fileName%></p>
+			
+		<ul class="collapsible black-text">
+		    <li>
+		      <div class="collapsible-header"><i class="material-icons">content_cut</i>Cut</div>
+		      <div class="collapsible-body grey lighten-3">
+		      	<div class="input-field">
+		      		<input type="number" id="cutStart">
+		      		<label for="cutStart">cut start</label>
+				</div>
+				<div class="input-field">
+		      		<input type="number" id="cutEnd">
+		      		<label for="cutEnd">cut end</label>
+				</div>
+				<button class="btn waves-effect waves-light deep-orange darken-2" id="cut">RCut</button>
+		      </div>
+		    </li>
+		</ul>
+
+		<div class="row"><div id="anchor"></div></div>
+
+	</div>
+
+	<script src="/materialize/js/materialize.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/scripts/audio_page.js"></script>
+	
+</body>
+</html>

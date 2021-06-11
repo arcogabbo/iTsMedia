@@ -33,9 +33,9 @@ function modifyPage(req, res)
 		case "jpg":
 			res.render("imgPage.ejs", obj);
 			break;
-		/*case "audio/mpeg":
-			res.sendFile("audioPage.ejs", {root: "src/view"});
-			break;*/
+		case "mp3":
+			res.render("audioPage.ejs", obj);
+			break;
 		default:
 			res.status(400).send("unsupported file");
 			break;		
