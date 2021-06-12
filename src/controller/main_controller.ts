@@ -8,7 +8,7 @@ function modifyPage(req, res)
 {
 	//var sess = {secret: "change me"}
 	//loading the file
-	if(!req.files.toUpload)
+	if(!req.files || !req.files.toUpload)
 		return res.status(400).send("No file uploaded");
 	let toUp = req.files.toUpload;
 	if(toUp.size >= 8*1024 * 1024)

@@ -41,8 +41,8 @@ describe("POST", () => {
 
 describe("PUT", () => {
 	it('/img valid operations',async()=>{
-		//put on /img without id or filename should return 400 status code
-		const result=await request.put('/img')
+		//put on /file without id or filename should return 400 status code
+		const result=await request.put('/file')
 		expect(result.statusCode).toEqual(400)
 	})
 })

@@ -5,27 +5,42 @@ if [ $# -eq 0 ]
 	exit 1
 fi
 
-params=""
-
-comando -r 200x100 --cut 10-30 --crop 10 10 20 20
-
 while(("$#"));do
-	case "$1" in 
+	case "$1" in
+		--input|-i)
+			inputFile=$2
+			shift 2
+			;;
 		--resize | -r)
 			newSize=$2
-			shift 2;;
+			shift 2
+			;;
 		--cut | -cu)
 			newLength=$2
-			shift 2;;
+			shift 2
+			;;
 		--crop | -cr)
 			newDim=$2
-			shift 2;;
+			shift 2
+			;;
+		--output|-o)
+			outputFile=$2
+			shift 2
+			;;
 		*)
-			echo "$1 comando non conosciuto"
-			
-	
-#request to upload the file
-fileName=$(curl -X POST -F "toUpload=@$1" localhost:8000/clifile)
-newFile=$({curl -X PUT -D "fileName=${fileName}&" localhost:8000/file})
-echo $response
+			echo "command $1 unknown."
+			exit 1
+			;;
+	esac
+done
 
+# -v returns true if variable exists
+if [ ! -v inputFile ] || [ ! -v outputFile ]; then
+	echo "Input or output file not provided, make sure to use options -i and -o"
+	exit 1
+fi
+
+#request to upload the file
+fileName=$(curl -X POST -F "toUpload=@$inputFile" localhost:8000/clifile)
+
+#newFile=$({curl -X PUT -D "fileName=${fileName}&" localhost:8000/file})

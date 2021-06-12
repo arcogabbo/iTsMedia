@@ -18,7 +18,6 @@ function updateAudio(req, res)
 	switch(parseInt(req.body.id))
 	{
 		case 0:
-			console.log("cut");
 			let ret = file.cut(parseInt(req.body.cutStart), parseInt(req.body.cutEnd));
 			if(ret)
 				return res.json({name: file.name + "_edit." + file.ext});

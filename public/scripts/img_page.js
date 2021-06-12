@@ -5,14 +5,12 @@ window.onload=function(){
       // options here
     });
 	document.getElementById("preview").addEventListener("click", updateIMG);
-
 }
 
 function checkOperations()
 {
 	var response = {id: []}
 	let markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked')
-	console.log(markedCheckbox[0].parentnode)
 	for(let i = 0; i < markedCheckbox.length; i++)
 	{
 		response.id.push(markedCheckbox[i].id.replace("action", ""));
@@ -21,7 +19,6 @@ function checkOperations()
 		for(let j = 0; j < data.length; j++)
 			response[data[j].id] = data[j].value;
 	}
-	console.log(response);
 	return response;
 }
 
@@ -30,7 +27,6 @@ function updateIMG() {
     var fileName = document.getElementById("fileName").innerHTML;
 
     let data = { fileName: fileName, ...checkOperations()};
-	console.log(data);
     var request = {
         url: "/file",
         method: "put",

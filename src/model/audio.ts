@@ -14,12 +14,11 @@ export class Audio extends Media
 
 	public cut(start: number, end: number)
 	{
-		console.log("sto tagliando le palle")
 		if(start < 0 || end > this.length || (end-start)<= 0)
 			return false;
 
 		let newName = __dirname + "/../../public/files/" + this.name + "_edit." + this.ext;
-		let result = shell.exec(`ffmpeg -y -i ${newName.replace("_edit", "")} -ss ${start} -to ${end} -c copy ${newName}`, {silent:false, shell: "/bin/bash"});
+		let result = shell.exec(`ffmpeg -y -i ${newName.replace("_edit", "")} -ss ${start} -to ${end} -c copy ${newName}`, {silent:true, shell: "/bin/bash"});
 
 		if(result.code!= 0)
 		{
@@ -28,7 +27,6 @@ export class Audio extends Media
 			console.log("cannot cut the audio");
 			return false;
 		}
-		console.log("ho tagliato correttamente");
 		return true;
 	} 
 }
