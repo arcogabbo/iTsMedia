@@ -45,7 +45,7 @@ export class Media{
 }
 
 export function check(s: string): extension{
-	switch(s){
+	switch(s.toLowerCase()){
 		case "jpeg":
 			return "jpeg"
 		case "jpg":

@@ -6,8 +6,6 @@ var bodyParser = require('body-parser')
 
 //routing
 import home_routes from './routes/home_routes';
-import img_routes from "./routes/img_routes";
-import audio_routes from "./routes/audio_routes";
 const app = express();
 const PORT = 8000;
 
@@ -19,8 +17,6 @@ app.use(fileUpload())
 
 //routing
 app.use(home_routes);
-app.use(img_routes);
-app.use(audio_routes);
 
 app.use(express.static(__dirname + "/../public"));
 app.use(express.static(__dirname + "/view"));

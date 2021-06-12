@@ -32,36 +32,46 @@
 		      <div class="collapsible-header"><i class="material-icons">photo_size_select_large</i>Resize</div>
 		      <div class="collapsible-body grey lighten-3">
 		      	<div class="input-field">
-		      		<input type="number" id="sizeX">
+		      		<input type="number" class="data" id="sizeX" value="800">
 		      		<label for="sizeX">size X</label>
 				</div>
 				<div class="input-field">
-		      		<input type="number" id="sizeY">
+		      		<input type="number" class="data" id="sizeY" value="600">
 		      		<label for="sizeY">size Y</label>
 				</div>
-				<button class="btn waves-effect waves-light deep-orange darken-2" id="resize">Resize</button>
+				<p>
+					<label>
+						<input id="action0" type="checkbox"/>
+						<span>Mantain this effect</span>
+					</label>
+				</p>
 		      </div>
 		    </li>
 		    <li>
 		      <div class="collapsible-header"><i class="material-icons">crop</i>Crop</div>
 		      <div class="collapsible-body grey lighten-3">
 		      	<div class="input-field">
-		      		<input type="number" id="cropX">
+		      		<input type="number" class="data" id="cropX">
 		      		<label for="cropX">crop X</label>
 				</div>
 				<div class="input-field">
-		      		<input type="number" id="cropY">
+		      		<input type="number" class="data" id="cropY">
 		      		<label for="cropY">crop Y</label>
 				</div>
 				<div class="input-field">
-		      		<input type="number" id="posX">
+		      		<input type="number" class="data" id="posX">
 		      		<label for="posX">pos X</label>
 				</div>
 				<div class="input-field">
-		      		<input type="number" id="posY">
+		      		<input type="number" class="data" id="posY">
 		      		<label for="posY">pos Y</label>
 				</div>
-				<button class="btn waves-effect waves-light deep-orange darken-2" id="crop">Crop</button>
+				<p>
+					<label>
+						<input id="action1" type="checkbox"/>
+						<span>Mantain this effect</span>
+					</label>
+				</p>
 		      </div>
 		    </li>
 		    <li>
@@ -69,17 +79,23 @@
 		      <div class="collapsible-body grey lighten-3">
 		      	<div class="range-field">
 		      		<span class="grey-text">Blur radius:</span>
-		      		<input type="range" id="blurRadiusSlider" min="0" max="100" value="50">
+		      		<input type="range" class="data" id="blurRadiusSlider" min="0" max="100" value="50">
 				</div>
 				<div class="range-field">
 		      		<span class="grey-text">Sigma:</span>
-		      		<input type="range" id="blurSigmaSlider" min="0" max="100" value="20">
+		      		<input type="range" class="data" id="blurSigmaSlider" min="0" max="100" value="20">
 				</div>
-				<button class="btn waves-effect waves-light deep-orange darken-2" id="blur">Blur</button>
+				<p>
+					<label>
+						<input id="action2" type="checkbox"/>
+						<span>Maintain this effect</span>
+					</label>
+				</p>
 		      </div>
 		    </li>
 		</ul>
-
+		
+		<button id="preview" class="btn waves-effect waves-light deep-orange darken-2">Preview</button>
 		<div class="row"><div id="anchor"></div></div>
 
 	</div>

@@ -11,9 +11,13 @@ export class Image extends Media{
 		super(f,id, extension)
 	}
 
-	crop(posX:number, posY:number, dimX:number, dimY:number){
+	crop(posX:number, posY:number, dimX:number, dimY:number, edited: boolean){
 		//call the wrapper to crop the image
-		gm(__dirname + "/../../public/files/" + this.name+'.'+this.ext)
+		let tmp = ".";
+		if(edited)
+			tmp = "_edit."
+
+		gm(__dirname + "/../../public/files/" + this.name + tmp +this.ext)
 		.crop(dimX,dimY, posX, posY)
 		.write(__dirname + "/../../public/files/" + this.name+'_edit'+'.'+this.ext, (err)=>{
 			if(err){
@@ -23,8 +27,11 @@ export class Image extends Media{
 		})
 	}
 
-	resize(dimX:number, dimY:number){
-		gm(__dirname +"/../../public/files/" + this.name+'.'+this.ext)
+	resize(dimX:number, dimY:number, edited: boolean){
+		let tmp = ".";
+		if(edited)
+			tmp = "_edit.";
+		gm(__dirname +"/../../public/files/" + this.name+tmp+this.ext)
 		.resizeExact(dimX,dimY)
 		.write(__dirname + "/../../public/files/" + this.name+'_edit'+'.'+this.ext, (err)=>{
 			if(err){
@@ -34,8 +41,11 @@ export class Image extends Media{
 		})
 	}
 
-	blur(radius:number,sigma:number){
-		gm(__dirname +"/../../public/files/" + this.name+'.'+this.ext)
+	blur(radius:number,sigma:number, edited: boolean){
+		let tmp = ".";
+		if(edited)
+			tmp = "_edit.";
+		gm(__dirname +"/../../public/files/" + this.name+tmp+this.ext)
 		.blur(radius,sigma)
 		.write(__dirname + "/../../public/files/" + this.name+'_edit'+'.'+this.ext, (err)=>{
 			if(err){

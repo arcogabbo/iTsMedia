@@ -17,7 +17,7 @@ function cutFile(id)
 
 	let request = 
 		{
-			url: "/audio",
+			url: "/file",
 			method: "put",
 			data: {cutStart, cutEnd, fileName, id},
 			success: function(result)
@@ -30,10 +30,12 @@ function cutFile(id)
 					a.className="btn deep-orange darken-2"
 					document.getElementById("anchor").appendChild(a);
            		 }
-
 			},
-			error: function(){console.log("error");}
+			error: function(xhr, statuse)
+			{
+				console.log(xhr);
+				console.log(statuse);
+			}
 		}
-
 	$.ajax(request);
 }

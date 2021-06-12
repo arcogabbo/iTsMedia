@@ -4,53 +4,35 @@ window.onload=function(){
     var instances = M.Collapsible.init(collapsibles, {
       // options here
     });
+	document.getElementById("preview").addEventListener("click", updateIMG);
 
-    var resize = document.getElementById("resize").addEventListener("click", function () { updateIMG(0); });
-    var crop = document.getElementById("crop").addEventListener("click", function () { updateIMG(1); });
-    var blur= document.getElementById("blur").addEventListener("click", function () { updateIMG(2); });
 }
 
-function updateIMG(id) {
-    if (id < 0 && id > 2)
-        return false;
-    var dimX = document.getElementById("sizeX");
-    var dimY = document.getElementById("sizeY");
-    if (id == 0 && !(dimX.value && dimY.value))
-        return false;
-    var cropX = document.getElementById("cropX");
-    var cropY = document.getElementById("cropY");
-    var posX = document.getElementById("posX");
-    var posY = document.getElementById("posY");
+function checkOperations()
+{
+	var response = {id: []}
+	let markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked')
+	console.log(markedCheckbox[0].parentnode)
+	for(let i = 0; i < markedCheckbox.length; i++)
+	{
+		response.id.push(markedCheckbox[i].id.replace("action", ""));
+		let mainDiv = ((markedCheckbox[i].parentNode).parentNode).parentNode
+		let data = mainDiv.getElementsByClassName("data");
+		for(let j = 0; j < data.length; j++)
+			response[data[j].id] = data[j].value;
+	}
+	console.log(response);
+	return response;
+}
 
-    var rad=document.getElementById("blurRadiusSlider");
-    var sigma=document.getElementById("blurSigmaSlider");
-
-    if (id == 1 && !(cropX.value && cropY.value && posX.value && posY.value))
-        return false;
+function updateIMG() {
 
     var fileName = document.getElementById("fileName").innerHTML;
 
-    var data = { id: id, fileName: fileName };
-
-    switch(id){
-        case 0:
-            Object.assign(data, { X: dimX.value });
-            Object.assign(data, { Y: dimY.value });
-            break;
-        case 1:
-            Object.assign(data, { cropX: cropX.value });
-            Object.assign(data, { cropY: cropY.value });
-            Object.assign(data, { posX: posX.value });
-            Object.assign(data, { posY: posY.value });
-            break;
-        case 2:
-            Object.assign(data,{radius:rad.value})
-            Object.assign(data,{sigma:sigma.value})
-            break;
-    }
-
+    let data = { fileName: fileName, ...checkOperations()};
+	console.log(data);
     var request = {
-        url: "/img",
+        url: "/file",
         method: "put",
         data: data,
         success: function (result) {
