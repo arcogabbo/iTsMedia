@@ -19,7 +19,6 @@ function modifyPage(req, res)
 	}
 
 	let name = toUp.name.split(".");
-	//et newName= Math.floor(Math.random() * 1000000).toString();
 	let newName = toUp.md5;
 	let file = new Media(toUp, newName, name[1]);
 	file.save();
@@ -36,7 +35,7 @@ function modifyPage(req, res)
 			res.render("audioPage.ejs", obj);
 			break;
 		default:
-			res.status(400).send("unsupported file");
+			res.status(400).send("Unsupported file");
 			break;		
 	}
 }
@@ -60,7 +59,7 @@ function downloadFile(req, res)
 //sending the file name for the cli interface
 function cliFile(req, res)
 {
-	if(!req.files.toUpload)	
+	if(!req.files || !req.files.toUpload)	
 		return res.status(400).send("missing file");
 	let toUp = req.files.toUpload;
 	if(toUp.size >= 8*1024 * 1024)
@@ -74,6 +73,8 @@ function cliFile(req, res)
 	let newName = toUp.md5;
 	let file = new Media(toUp, newName, name[1]);
 	file.save();
+
+	if(file.ext == undefined) return res.status(400).send("Unsupported file")
 	res.status(200).send(newName + "." + name[1].toLowerCase());
 }
 export {downloadFile, modifyPage, home, cliFile}

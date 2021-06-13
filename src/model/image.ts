@@ -30,6 +30,26 @@ export class Image extends Media{
 		this.command.blur(radius,sigma)
 	}
 
+	monochrome(){
+		this.command.monochrome()
+	}
+
+	flip(){
+		this.command.flip()
+	}
+
+	flop(){
+		this.command.flop()
+	}
+
+	gamma(value:number){
+		this.command.gamma(value,value,value)
+	}
+
+	normalize(){
+		this.command.normalize()
+	}
+
 	execute(){
 		this.command.write(__dirname + "/../../public/files/" + this.name+'_edit.'+this.ext, (err)=>{
 			if(err){

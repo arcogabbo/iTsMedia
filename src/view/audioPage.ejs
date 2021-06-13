@@ -18,6 +18,15 @@
 	<div class="container">
 		<span class="flow-text">Edit your audio</span><br>
 		<p id="fileName" class="hide"><%=fileName%></p>
+
+		<div class="row">
+			<div class="col s6 center-align">
+				<audio controls muted src="/files/<%=fileName%>"></audio>
+			</div>
+			<div class="col s6 center-align">
+				<audio id="editPreview" src="" controls muted></audio>
+			</div>
+		</div>
 			
 		<ul class="collapsible black-text">
 		    <li>
@@ -25,13 +34,13 @@
 		      <div class="collapsible-body grey lighten-3">
 		      	<div class="input-field">
 		      		<input type="number" id="cutStart">
-		      		<label for="cutStart">cut start</label>
+		      		<label for="cutStart">Cut start (in seconds)</label>
 				</div>
 				<div class="input-field">
 		      		<input type="number" id="cutEnd">
-		      		<label for="cutEnd">cut end</label>
+		      		<label for="cutEnd">Cut end (in seconds)</label>
 				</div>
-				<button class="btn waves-effect waves-light deep-orange darken-2" id="cut">RCut</button>
+				<button class="btn waves-effect waves-light deep-orange darken-2" id="cut">Cut</button>
 		      </div>
 		    </li>
 		</ul>

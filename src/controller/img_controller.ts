@@ -27,6 +27,22 @@ function updateImg(req, res)
 				if(!req.body.blurSigmaSlider || (req.body.blurSigmaSlider < 0 || req.body.blurSigmaSlider > 100)) return res.status(400).send("Wrong sigma value")
 				img.blur(req.body.blurRadiusSlider, req.body.blurSigmaSlider)
 				break;
+			case 3:
+				img.monochrome()
+				break;
+			case 4:
+				img.flip()
+				break;
+			case 5:
+				img.flop()
+				break;
+			case 6:
+				if(!req.body.gammaValueSlider) res.status(400).send("Missing gamma value")
+				img.gamma(parseFloat(req.body.gammaValueSlider))
+				break;
+			case 7:
+				img.normalize()
+				break;
 			default:
 				res.status(400).send("Action not implemented")
 		}
