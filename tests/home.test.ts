@@ -22,27 +22,46 @@ describe("GET", () => {
 
 describe("POST", () => {
 	it('File url without uploading should not be possible',async()=>{
-		const result=await request.post('/file')
+		let result=await request.post('/file')
+		expect(result.statusCode).toEqual(400)
+
+		result=await request.post('/clifile')
 		expect(result.statusCode).toEqual(400)
 	})
 
 	it('File must be <= 8Mb',async()=>{
-		const result=await request.post('/file').attach('toUpload',__dirname+'/images/landscape.jpg')
+		let result=await request.post('/file').attach('toUpload',__dirname+'/images/landscape.jpg')
+		//payload too large
+		expect(result.statusCode).toEqual(413)
+
+		result=await request.post('/clifile').attach('toUpload',__dirname+'/images/landscape.jpg')
 		//payload too large
 		expect(result.statusCode).toEqual(413)
 	})
 
 	it('File test',async()=>{
-		const result=await request.post('/file').attach('toUpload',__dirname+'/images/light.jpg')
+		let result=await request.post('/file').attach('toUpload',__dirname+'/images/light.jpg')
 		//payload OK
 		expect(result.statusCode).toEqual(200)
+
+		result=await request.post('/clifile').attach('toUpload',__dirname+'/images/light.jpg')
+		//payload OK
+		expect(result.statusCode).toEqual(200)
+	})
+
+	it('Extension unsupported',async()=>{
+		let result=await request.post('/file').attach('toUpload',__dirname+'/images/anim.gif')
+		expect(result.statusCode).toEqual(400)
+
+		result=await request.post('/clifile').attach('toUpload',__dirname+'/images/anim.gif')
+		expect(result.statusCode).toEqual(400)
 	})
 })
 
 describe("PUT", () => {
 	it('/img valid operations',async()=>{
-		//put on /img without id or filename should return 400 status code
-		const result=await request.put('/img')
+		//put on /file without id or filename should return 400 status code
+		const result=await request.put('/file')
 		expect(result.statusCode).toEqual(400)
 	})
 })

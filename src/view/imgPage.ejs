@@ -6,6 +6,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css">
+
+    <link type="text/css" rel="stylesheet" href="/css/main.css">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	
@@ -27,59 +29,145 @@
 			</div>
 		</div>	
 			
+
+		<!-- MENU' COLLASSABILE -->
 		<ul class="collapsible black-text">
+			<!-- RESIZE -->
 		    <li>
 		      <div class="collapsible-header"><i class="material-icons">photo_size_select_large</i>Resize</div>
-		      <div class="collapsible-body grey lighten-3">
-		      	<div class="input-field">
-		      		<input type="number" id="sizeX">
+		      <div class="collapsible-body grey lighten-3 row mzero">
+		      	<div class="input-field col s6">
+		      		<input type="number" class="data" id="sizeX" value="800">
 		      		<label for="sizeX">size X</label>
 				</div>
-				<div class="input-field">
-		      		<input type="number" id="sizeY">
+				<div class="input-field col s6">
+		      		<input type="number" class="data" id="sizeY" value="600">
 		      		<label for="sizeY">size Y</label>
 				</div>
-				<button class="btn waves-effect waves-light deep-orange darken-2" id="resize">Resize</button>
+				<p>
+					<label>
+						<input id="action0" type="checkbox"/>
+						<span>Mantain this effect</span>
+					</label>
+				</p>
 		      </div>
 		    </li>
+
+		    <!-- CROP -->
 		    <li>
 		      <div class="collapsible-header"><i class="material-icons">crop</i>Crop</div>
-		      <div class="collapsible-body grey lighten-3">
-		      	<div class="input-field">
-		      		<input type="number" id="cropX">
+		      <div class="collapsible-body grey lighten-3 row mzero">
+		      	<div class="input-field col s6">
+		      		<input type="number" class="data" id="cropX">
 		      		<label for="cropX">crop X</label>
 				</div>
-				<div class="input-field">
-		      		<input type="number" id="cropY">
+				<div class="input-field col s6">
+		      		<input type="number" class="data" id="cropY">
 		      		<label for="cropY">crop Y</label>
 				</div>
-				<div class="input-field">
-		      		<input type="number" id="posX">
+				<div class="input-field col s6">
+		      		<input type="number" class="data" id="posX">
 		      		<label for="posX">pos X</label>
 				</div>
-				<div class="input-field">
-		      		<input type="number" id="posY">
+				<div class="input-field col s6">
+		      		<input type="number" class="data" id="posY">
 		      		<label for="posY">pos Y</label>
 				</div>
-				<button class="btn waves-effect waves-light deep-orange darken-2" id="crop">Crop</button>
+				<p>
+					<label>
+						<input id="action1" type="checkbox"/>
+						<span>Mantain this effect</span>
+					</label>
+				</p>
 		      </div>
 		    </li>
+
+		    <!-- BLUR -->
 		    <li>
 		      <div class="collapsible-header"><i class="material-icons">blur_circular</i>Gaussian blur</div>
 		      <div class="collapsible-body grey lighten-3">
 		      	<div class="range-field">
 		      		<span class="grey-text">Blur radius:</span>
-		      		<input type="range" id="blurRadiusSlider" min="0" max="100" value="50">
+		      		<input type="range" class="data" id="blurRadiusSlider" min="0" max="100" value="50">
 				</div>
 				<div class="range-field">
 		      		<span class="grey-text">Sigma:</span>
-		      		<input type="range" id="blurSigmaSlider" min="0" max="100" value="20">
+		      		<input type="range" class="data" id="blurSigmaSlider" min="0" max="100" value="20">
 				</div>
-				<button class="btn waves-effect waves-light deep-orange darken-2" id="blur">Blur</button>
+				<p>
+					<label>
+						<input id="action2" type="checkbox"/>
+						<span>Maintain this effect</span>
+					</label>
+				</p>
+		      </div>
+		    </li>
+
+		    <!-- MONOCHROME -->
+		    <li>
+		      <div class="collapsible-header"><i class="material-icons">invert_colors</i>Black and White</div>
+		      <div class="collapsible-body grey lighten-3">
+				<p>
+					<label>
+						<input id="action3" type="checkbox"/>
+						<span>Maintain this effect</span>
+					</label>
+				</p>
+		      </div>
+		    </li>
+
+
+		    <!-- FLIP -->
+		    <li>
+		      <div class="collapsible-header"><i class="material-icons">flip</i>Flip</div>
+		      <div class="collapsible-body grey lighten-3 row mzero">
+				<p class="col s6 center-align">
+					<label>
+						<input id="action4" type="checkbox"/>
+						<span>Flip vertically</span>
+					</label>
+				</p>
+				<p class="col s6 center-align">
+					<label>
+						<input id="action5" type="checkbox"/>
+						<span>Flip horizontally</span>
+					</label>
+				</p>
+		      </div>
+		    </li>
+
+		    <!-- GAMMA -->
+		    <li>
+		      <div class="collapsible-header"><i class="material-icons">brightness_medium</i>Adjust gamma</div>
+		      <div class="collapsible-body grey lighten-3">
+				<div class="range-field">
+		      		<span class="grey-text">Gamma value:</span>
+		      		<input type="range" class="data" id="gammaValueSlider" min="0.5" max="2.5" value="1.0" step="0.1">
+				</div>
+				<p>
+					<label>
+						<input id="action6" type="checkbox"/>
+						<span>Maintain this effect</span>
+					</label>
+				</p>
+		      </div>
+		    </li>
+
+		    <!-- NORMALIZE -->
+		    <li>
+		      <div class="collapsible-header"><i class="material-icons">brightness_2</i>Normalize Contrast</div>
+		      <div class="collapsible-body grey lighten-3">
+				<p>
+					<label>
+						<input id="action7" type="checkbox"/>
+						<span>Maintain this effect</span>
+					</label>
+				</p>
 		      </div>
 		    </li>
 		</ul>
-
+		
+		<button id="preview" class="btn waves-effect waves-light deep-orange darken-2 row">Preview</button>
 		<div class="row"><div id="anchor"></div></div>
 
 	</div>
