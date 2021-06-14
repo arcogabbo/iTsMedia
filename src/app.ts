@@ -1,13 +1,15 @@
 import express from 'express';
 import fileUpload from 'express-fileupload';
 import path from "path";
+import dotenv from "dotenv"
+
+dotenv.config({path: './src/.env'})
 
 var bodyParser = require('body-parser')
 
 //routing
 import home_routes from './routes/home_routes';
 const app = express();
-const PORT = 8000;
 
 //no needed atm
 //app.use(bodyParser.json());
@@ -23,4 +25,4 @@ app.use(express.static(__dirname + "/view"));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'view/'));
 
-export {app, PORT}
+export {app}

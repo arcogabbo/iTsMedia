@@ -12,6 +12,9 @@ router.post("/file", mainController.modifyPage);
 router.put("/file", checkType);
 router.get("/download/:filename", mainController.downloadFile);
 
+router.get('/feedback',mainController.getFeedback)
+router.post('/feedback',mainController.postFeedback)
+
 function checkType(req, res)
 {
 	if(!req.body.fileName)
