@@ -1,7 +1,7 @@
 import type ef from "express-fileupload"
 import fs from "fs"
 
-export type extension= "jpeg" | "jpg" | "png" | "mp3" | undefined //to extend as releases goes on
+export type extension= "jpeg" | "jpg" | "png" | "mp3" | "docx" | "md" | undefined //to extend as releases goes on
 
 export class Media{
 	name: string
@@ -34,6 +34,7 @@ export class Media{
 
 	save():void{
 		//saving file
+		console.log(this.ext)
 		if(typeof(this.ext) != undefined && this.file != undefined){
 			const uploadPath = __dirname + '/../../public/files/' + this.name +'.'+ this.ext;
 			this.file.mv(uploadPath, (err):void=>{
@@ -54,6 +55,10 @@ export function check(s: string): extension{
 			return "png"
 		case "mp3":
 			return "mp3"
+		case "md":
+			return "md"
+		case "docx":
+			return "docx"
 		default:
 			return undefined
 	}

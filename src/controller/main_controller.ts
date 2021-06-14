@@ -6,7 +6,6 @@ import fs from "fs";
 //then if succed will render to the page where the user can modify it
 function modifyPage(req, res)
 {
-	//var sess = {secret: "change me"}
 	//loading the file
 	if(!req.files || !req.files.toUpload)
 		return res.status(400).send("No file uploaded");
@@ -23,7 +22,7 @@ function modifyPage(req, res)
 	let file = new Media(toUp, newName, name[1]);
 	file.save();
 	//depending on the file type the user is redirected to a page
-	let obj = {fileName: newName + "." + name[1].toLowerCase()}
+	let obj = {fileName: newName + "." + name[1].toLowerCase(), ext: name[1]}
 	switch (file.ext)
 	{
 		case "jpeg":
@@ -33,6 +32,10 @@ function modifyPage(req, res)
 			break;
 		case "mp3":
 			res.render("audioPage.ejs", obj);
+			break;
+		case "md":
+		case "docx":
+			res.render("document.ejs", obj);
 			break;
 		default:
 			res.status(400).send("Unsupported file");
@@ -50,7 +53,8 @@ function downloadFile(req, res)
 {
 	let file = __dirname + "/../../public/files/" + req.params.filename;
 	//md5 is 32 chars wide but we always download the _edit one -> 37 chars
-	if(req.params.filename.length < 37 || !fs.existsSync(file))
+	console.log(file);
+	if(req.params.filename.length < 32 || !fs.existsSync(file))
 		return res.status(404).send("file not found");
 	
 	res.download(file);
