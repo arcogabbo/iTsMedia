@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - dev
+      - arco
 
 jobs:
   build_and_test:
@@ -12,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: sudo apt update && sudo apt install mariadb-server
+      - run: sudo apt update && sudo apt autoclean && sudo apt install mariadb-server
       - run: sudo mysqladmin -proot password ''
       - run: sudo mysql -e "CREATE DATABASE progingsw"
       - run: sudo mysql -e "CREATE USER 'ingsw'@'localhost' IDENTIFIED BY '${{ secrets.GITHUB_TOKEN }}'"
