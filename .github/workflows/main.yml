@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Shutdown Ubuntu MySQL (SUDO)
+        run: sudo service mysql stop
       - uses: getong/mariadb-action@v1.1
         with:
           character set server: 'utf8'
@@ -19,6 +21,7 @@ jobs:
           mysql database: 'progingsw'
           mysql user: 'ingsw'
           mysql password: ${{ secrets.DatabasePassword }}
+      - run: sudo apt update && sudo apt install graphicsmagick
       - run: npm install
       - run: mkdir public/files
       - run: npm run test
