@@ -1,7 +1,7 @@
 import type ef from "express-fileupload"
 import fs from "fs"
 
-export type extension= "jpeg" | "jpg" | "png" | "mp3" | undefined //to extend as releases goes on
+export type extension= "jpeg" | "jpg" | "png" | "mp3" | "mp4" | "ogg" | "mkv" | undefined //to extend as releases goes on
 
 export class Media{
 	name: string
@@ -54,6 +54,12 @@ export function check(s: string): extension{
 			return "png"
 		case "mp3":
 			return "mp3"
+		case "mp4":
+			return "mp4"
+		case "ogg":
+			return "ogg"
+		case "mkv":
+			return "mkv"
 		default:
 			return undefined
 	}

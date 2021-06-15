@@ -25,7 +25,7 @@ function modifyPage(req, res)
 	let file = new Media(toUp, newName, name[1]);
 	file.save();
 	//depending on the file type the user is redirected to a page
-	let obj = {fileName: newName + "." + name[1].toLowerCase()}
+	let obj = {fileName: newName + "." + name[1].toLowerCase(), ext:name[1]}
 	switch (file.ext)
 	{
 		case "jpeg":
@@ -34,7 +34,10 @@ function modifyPage(req, res)
 			res.render("imgPage.ejs", obj);
 			break;
 		case "mp3":
-			res.render("audioPage.ejs", obj);
+		case "mp4":
+		case "ogg":
+		case "mkv":
+			res.render("audioVideoPage.ejs", obj);
 			break;
 		default:
 			res.status(400).send("Unsupported file");

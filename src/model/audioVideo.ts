@@ -2,7 +2,7 @@ import {extension, Media} from "./media";
 import type ef from "express-fileupload";
 import shell from "shelljs";
 
-export class Audio extends Media
+export class AudioVideo extends Media
 {
 	private length: number; //duration in seconds
 
@@ -24,7 +24,7 @@ export class Audio extends Media
 		{
 			console.log(result.code);
 			console.log(result.stdout);
-			console.log("cannot cut the audio");
+			console.log("cannot cut the audio or video");
 			return false;
 		}
 		return true;

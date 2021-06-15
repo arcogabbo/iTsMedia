@@ -19,15 +19,33 @@
 		<span class="flow-text">Edit your audio</span><br>
 		<p id="fileName" class="hide"><%=fileName%></p>
 
-		<div class="row">
-			<div class="col s6 center-align">
-				<audio controls muted src="/files/<%=fileName%>"></audio>
+		<% switch(ext) { 
+			case "mp3":
+			case "ogg": %>
+			<div class="row">
+				<div class="col s6 center-align">
+					<audio controls muted src="/files/<%=fileName%>"></audio>
+				</div>
+				<div class="col s6 center-align">
+					<audio id="editPreview" src="" controls muted></audio>
+				</div>
 			</div>
-			<div class="col s6 center-align">
-				<audio id="editPreview" src="" controls muted></audio>
+			<% break;
+
+			default: %>
+			<div class="row">
+				<div class="col s6 center-align">
+					<video width="320" height="240" controls muted src="/files/<%=fileName%>">
+				</div>
+				<div class="col s6 center-align">
+					<video id="editPreview" width="320" height="240" controls muted src="">
+				</div>
 			</div>
-		</div>
+			<% break;
+
+		   } %>
 			
+
 		<ul class="collapsible black-text">
 		    <li>
 		      <div class="collapsible-header"><i class="material-icons">content_cut</i>Cut</div>
