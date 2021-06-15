@@ -10,7 +10,6 @@ function updateImg(req, res)
 	let img = parse("../../public/files/", name[0], name[1]);
 	if(!req.body.id)
 	{
-		console.log("no id")
 		img.execute()
 		return res.status(200).json({name: img.name  + "_edit" + "." + img.ext});
 	}

@@ -34,7 +34,6 @@ export class Media{
 
 	save():void{
 		//saving file
-		console.log(this.ext)
 		if(typeof(this.ext) != undefined && this.file != undefined){
 			const uploadPath = __dirname + '/../../public/files/' + this.name +'.'+ this.ext;
 			this.file.mv(uploadPath, (err):void=>{

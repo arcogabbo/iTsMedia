@@ -5,11 +5,11 @@ import dotenv from "dotenv"
 
 dotenv.config({path: './src/.env'})
 
-var bodyParser = require('body-parser')
 
 //routing
 import home_routes from './routes/home_routes';
 const app = express();
+var bodyParser = require('body-parser')
 
 //no needed atm
 //app.use(bodyParser.json());

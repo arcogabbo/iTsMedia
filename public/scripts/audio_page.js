@@ -32,11 +32,12 @@ function cutFile(id)
            		 }
 
            		setTimeout(function(){ 
+					if($('#preview-block').hasClass('hide'))
+	                    $('#preview-block').removeClass('hide')
 	            	$("#editPreview").attr('src','/files/'+result.name+'?t=' + new Date().getTime())
 	            	$("#editPreview").load()
 
-	                if($('#preview-block').hasClass('hide'))
-	                    $('#preview-block').removeClass('hide')
+	                
 	            }, 3000);
 			},
 			error: function(xhr, statuse)

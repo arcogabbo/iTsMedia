@@ -92,6 +92,7 @@ function getFeedback(req,res){
 }
 
 async function postFeedback(req,res){
+	console.log(req.body);
 	if(!req.body.title || !req.body.content) return res.status(400).send("Title or content missing")
 	if(req.body.title.length > 20 || req.body.content.length > 150) return res.status(400).send("Max length reached")
 	
