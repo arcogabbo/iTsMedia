@@ -12,16 +12,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Shutdown Ubuntu MySQL (SUDO)
-        run: sudo service mysql stop
-      - uses: getong/mariadb-action@v1.1
-        with:
-          character set server: 'utf8'
-          mariadb version: '10.4.10'
-          mysql database: 'progingsw'
-          mysql user: 'ingsw'
-          mysql password: ${{ secrets.DatabasePassword }}
-      - run: sudo apt update && sudo apt install graphicsmagick
+      - run: sudo apt update && sudo apt install mariadb-server
+      - run: sudo mysqladmin -proot password ''
+      - run: sudo mysql -e "CREATE DATABASE progingsw"
+      - run: sudo mysql -e "CREATE USER 'ingsw'@'localhost' IDENTIFIED BY '${{ secrets.GITHUB_TOKEN }}'"
+      - run: sudo mysql -e "GRANT ALL PRIVILEGES ON progingsw.* TO 'ingsw'@'localhost'"
+      - run: sudo mysql -e "FLUSH PRIVILEGES"
+      - run: sudo systemctl start mariadb
+      - run: sudo apt install graphicsmagick
       - run: npm install
       - run: mkdir public/files
+      - run: echo $PORT
+        with:
+          PORT: 8000
+          DB_USER: ingsw
+          DB_PASSW: ${{ secrets.GITHUB_TOKEN }}
+          DB_NAME: progingsw
+          DB_HOST: 127.0.0.1
+          DB_CONNECTION_LIMIT: 10
       - run: npm run test
