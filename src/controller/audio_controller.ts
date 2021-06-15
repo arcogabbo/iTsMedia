@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {Audio} from "../model/audio";
+import {AudioVideo} from "../model/audioVideo";
 import shell from "shelljs"; 
 
 function updateAudio(req, res)
@@ -13,7 +13,7 @@ function updateAudio(req, res)
 	if(result.code != 0)
 		return res.status(500).send("internal server error");
 
-	let file = new Audio(path, name[0], name[1], parseInt(result.stdout.split(".")[0]));
+	let file = new AudioVideo(path, name[0], name[1], parseInt(result.stdout.split(".")[0]));
 
 	switch(parseInt(req.body.id))
 	{

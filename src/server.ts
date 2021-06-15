@@ -1,5 +1,5 @@
-import {app, PORT} from './app'
+import {app} from './app'
 
-app.listen(PORT, () => {
- 	console.log(`⚡️: Server is running at https://localhost:${PORT}`);
+app.listen(process.env.PORT, () => {
+ 	console.log(`⚡️: Server is running at https://localhost:${process.env.PORT}`);
 })

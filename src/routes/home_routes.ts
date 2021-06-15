@@ -13,6 +13,9 @@ router.post("/file", mainController.modifyPage);
 router.put("/file", checkType);
 router.get("/download/:filename", mainController.downloadFile);
 
+router.get('/feedback',mainController.getFeedback)
+router.post('/feedback',mainController.postFeedback)
+
 async function checkType(req, res)
 {
 	if(!req.body.fileName)
@@ -27,6 +30,9 @@ async function checkType(req, res)
 			img_controller.updateImg(req, res);
 			break;
 		case "mp3":
+		case "mp4":
+		case "ogg":
+		case "mkv":
 			audio_controller.updateAudio(req, res);
 			break;
 		case "md":

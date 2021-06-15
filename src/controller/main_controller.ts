@@ -2,6 +2,8 @@ import { Router } from "express";
 import session from "express-session";
 import {Media} from "../model/media";
 import fs from "fs";
+import * as db from "../model/review"
+
 //this function try to upload the file in the "files" directory
 //then if succed will render to the page where the user can modify it
 function modifyPage(req, res)
@@ -22,7 +24,7 @@ function modifyPage(req, res)
 	let file = new Media(toUp, newName, name[1]);
 	file.save();
 	//depending on the file type the user is redirected to a page
-	let obj = {fileName: newName + "." + name[1].toLowerCase(), ext: name[1]}
+	let obj = {fileName: newName + "." + name[1].toLowerCase(), ext:name[1]}
 	switch (file.ext)
 	{
 		case "jpeg":
@@ -31,7 +33,10 @@ function modifyPage(req, res)
 			res.render("imgPage.ejs", obj);
 			break;
 		case "mp3":
-			res.render("audioPage.ejs", obj);
+		case "mp4":
+		case "ogg":
+		case "mkv":
+			res.render("audioVideoPage.ejs", obj);
 			break;
 		case "md":
 		case "docx":
@@ -81,4 +86,28 @@ function cliFile(req, res)
 	if(file.ext == undefined) return res.status(400).send("Unsupported file")
 	res.status(200).send(newName + "." + name[1].toLowerCase());
 }
-export {downloadFile, modifyPage, home, cliFile}
+
+function getFeedback(req,res){
+	res.render("feedbackPage.ejs")
+}
+
+async function postFeedback(req,res){
+	if(!req.body.title || !req.body.content) return res.status(400).send("Title or content missing")
+	if(req.body.title.length > 20 || req.body.content.length > 150) return res.status(400).send("Max length reached")
+	
+	if(!req.body.star){
+		req.body.star=null
+	}else if(req.body.start < 1 || req.body.star > 5 ){
+		return res.status(400).send("Star rating must be between 1 and 5")
+	}
+
+	let result=await db.insertReview(req.body.title,req.body.content,req.body.star)
+
+	if(result){
+		res.json({message:'The feedback has been sent, thanks.'})
+	}else{
+		res.status(500).json({message:'Whoops, the feedback went missing on the internet'})
+	}
+}
+
+export {downloadFile, modifyPage, home, cliFile, getFeedback, postFeedback}

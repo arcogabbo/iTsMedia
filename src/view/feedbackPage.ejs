@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Feedback</title>
+	 <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body class="white-text blue-grey darken-4">
+	<div class="container">
+		<span class="flow-text">Feedback is an important action to help developers see the opinions of all the user base and guide the app towards a better state, so please consider talking about your problems using the application or the things you do/don't like.</span>
+		
+		<div class="row">
+			<div class="input-field">
+	          <input name="title" id="review-title" type="text" class="white-text validate" data-length="20">
+	          <label for="review-title">Title:</label>
+	        </div>
+			<div class="input-field">
+		    	<textarea name="content" id="review-content" class="white-text materialize-textarea" data-length="150"></textarea>
+      			<label for="review-content">Feedback:</label>
+		    </div>
+		    <div class="input-field">
+				<input id="star" class="white-text" type="number" value="5" min="1" max="5"/>
+				<label for="star">Star rating:</label>
+			</div>
+			<div class="input-field">
+				<input id="send-button" class="waves-effect waves-light btn deep-orange darken-2" type='submit' value='Send' />
+			</div>
+		</div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/materialize/js/materialize.min.js"></script>
+	<script src="/scripts/feedback_page.js"></script>
+</body>
+</html>
