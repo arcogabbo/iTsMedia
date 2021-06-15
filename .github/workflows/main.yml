@@ -23,7 +23,7 @@ jobs:
       - run: npm install
       - run: mkdir public/files
       - run: echo $PORT
-        with:
+        env:
           PORT: 8000
           DB_USER: ingsw
           DB_PASSW: ${{ secrets.GITHUB_TOKEN }}
