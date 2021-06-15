@@ -12,6 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: getong/mariadb-action@v1.1
+        with:
+          character set server: 'utf8'
+          mariadb version: '10.4.10'
+          mysql database: 'progingsw'
+          mysql user: 'ingsw'
+          mysql password: ${{ secrets.DatabasePassword }}
       - run: npm install
       - run: mkdir public/files
       - run: npm run test
