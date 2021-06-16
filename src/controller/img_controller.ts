@@ -19,8 +19,9 @@ function updateImg(req, res)
 		switch (parseInt(req.body.id[i]))
 		{
 			case 0:
-				if(!req.body.X || !req.body.Y) return res.status(400).send("Wrong resize parameters")
-				img.resize(parseInt(req.body.X), parseInt(req.body.Y));
+				if(!req.body.sizeX || !req.body.sizeY)
+					return res.status(400).send("Wrong resize parameters")
+				img.resize(parseInt(req.body.sizeX), parseInt(req.body.sizeY));
 				break;
 			case 1:
 				if(req.body.cropX == 0 || req.body.cropY == 0) return res.status(400).send("Wrong geometry")

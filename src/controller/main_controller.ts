@@ -58,7 +58,6 @@ function downloadFile(req, res)
 {
 	let file = __dirname + "/../../public/files/" + req.params.filename;
 	//md5 is 32 chars wide but we always download the _edit one -> 37 chars
-	console.log(file);
 	if(req.params.filename.length < 32 || !fs.existsSync(file))
 		return res.status(404).send("file not found");
 	
@@ -92,7 +91,6 @@ function getFeedback(req,res){
 }
 
 async function postFeedback(req,res){
-	console.log(req.body);
 	if(!req.body.title || !req.body.content) return res.status(400).send("Title or content missing")
 	if(req.body.title.length > 20 || req.body.content.length > 150) return res.status(400).send("Max length reached")
 	
