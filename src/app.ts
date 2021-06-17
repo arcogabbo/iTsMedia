@@ -12,7 +12,7 @@ const app = express();
 var bodyParser = require('body-parser')
 
 //no needed atm
-//app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(fileUpload())

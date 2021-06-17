@@ -13,14 +13,12 @@ function updateImg(req, res)
 		img.execute()
 		return res.status(200).json({name: img.getName()  + "_edit" + "." + img.getExt()});
 	}
-	
 	for(let i = 0; i < req.body.id.length; i++)
 	{
 		switch (parseInt(req.body.id[i]))
 		{
 			case 0:
-				if(!req.body.sizeX || !req.body.sizeY)
-					return res.status(400).send("Wrong resize parameters")
+				if(!req.body.sizeX || !req.body.sizeY) return res.status(400).send("Wrong resize parameters")
 				img.resize(parseInt(req.body.sizeX), parseInt(req.body.sizeY));
 				break;
 			case 1:
@@ -45,13 +43,14 @@ function updateImg(req, res)
 				break;
 			case 6:
 				if(!req.body.gammaValueSlider) res.status(400).send("Missing gamma value")
+				if(parseInt(req.body.gammaValueSlider) < 0.5 || parseInt(req.body.gammaValueSlider) > 2.5) res.status(400).send("Gamma value exceed range")
 				img.gamma(parseFloat(req.body.gammaValueSlider))
 				break;
 			case 7:
 				img.normalize()
 				break;
 			default:
-				res.status(400).send("Action not implemented")
+				return res.status(400).send("Action not implemented")
 		}
 	}
 	//execute the command
