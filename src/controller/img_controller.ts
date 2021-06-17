@@ -43,6 +43,7 @@ function updateImg(req, res)
 				break;
 			case 6:
 				if(!req.body.gammaValueSlider) res.status(400).send("Missing gamma value")
+				if(parseInt(req.body.gammaValueSlider) < 0.5 || parseInt(req.body.gammaValueSlider) > 2.5) res.status(400).send("Gamma value exceed range")
 				img.gamma(parseFloat(req.body.gammaValueSlider))
 				break;
 			case 7:
