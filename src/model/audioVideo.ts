@@ -18,7 +18,7 @@ export class AudioVideo extends Media
 		if(start < 0 || end > this.length || (end-start)<= 0)
 			return 1;
 
-		let newName = __dirname + "/../../public/files/" + this.name + "_edit." + this.ext;
+		let newName = __dirname + "/../../public/files/" + this.getName() + "_edit." + this.getExt();
 		let result = shell.exec(`ffmpeg -y -i ${newName.replace("_edit", "")} -ss ${start} -to ${end} ${newName}`, {silent:true, shell: "/bin/bash"});
 
 		if(result.code!= 0)

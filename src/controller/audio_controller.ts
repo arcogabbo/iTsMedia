@@ -20,7 +20,7 @@ function updateAudio(req, res)
 		case 0:
 			let ret = file.cut(parseInt(req.body.cutStart), parseInt(req.body.cutEnd));
 			if(ret == 0)
-				return res.json({name: file.name + "_edit." + file.ext});
+				return res.json({name: file.getName() + "_edit." + file.getExt()});
 			else if(ret == -1)
 				return res.status(500).json({message: "internal server error"});
 			else

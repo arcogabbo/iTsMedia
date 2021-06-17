@@ -11,7 +11,7 @@ function updateImg(req, res)
 	if(!req.body.id)
 	{
 		img.execute()
-		return res.status(200).json({name: img.name  + "_edit" + "." + img.ext});
+		return res.status(200).json({name: img.getName()  + "_edit" + "." + img.getExt()});
 	}
 	
 	for(let i = 0; i < req.body.id.length; i++)
@@ -56,7 +56,7 @@ function updateImg(req, res)
 	}
 	//execute the command
 	img.execute()
-	res.status(200).json({name: img.name  + "_edit" + "." + img.ext});
+	res.status(200).json({name: img.getName()  + "_edit" + "." + img.getExt()});
 }
 
 export {updateImg}

@@ -8,18 +8,18 @@ export class Document extends Media
 	constructor(f: ef.UploadedFile | string, id: string, extension: string)
 	{
 		super(f, id, extension);
-		this.fullName = __dirname + "/../../public/files/" + this.name;
+		this.fullName = __dirname + "/../../public/files/" + this.getName();
 	}	
 
 	public async mdToPdf()
 	{
-		let command = `pandoc ${__dirname + "/../../public/files/" + this.name + "." + this.ext} --pdf-engine=pdflatex -o ${__dirname + "/../../public/files/" + this.name  + ".pdf"}`;
+		let command = `pandoc ${__dirname + "/../../public/files/" + this.getName() + "." + this.getExt()} --pdf-engine=pdflatex -o ${__dirname + "/../../public/files/" + this.getName()  + ".pdf"}`;
 		return await this.execCommand(command);
 	}
 
 	public async docxToMd()
 	{
-		let command = `pandoc -s ${this.fullName + "." + this.ext} -t markdown -o ${this.fullName+".md"}`
+		let command = `pandoc -s ${this.fullName + "." + this.getExt()} -t markdown -o ${this.fullName+".md"}`
 		return await this.execCommand(command);
 	}
 
