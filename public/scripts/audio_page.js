@@ -5,12 +5,12 @@ var collapsibles = document.querySelectorAll('.collapsible');
 var instances = M.Collapsible.init(collapsibles, {});
 // options here
 
-
 function cutFile(id)
 {
 	let cutStart = document.getElementById("cutStart").value;
 	let cutEnd = document.getElementById("cutEnd").value;
 	let fileName = document.getElementById("fileName").innerHTML;
+	console.log(fileName)
 
 	if(!cutStart || !cutEnd)
 		return false;
@@ -42,8 +42,9 @@ function cutFile(id)
 			},
 			error: function(xhr, statuse)
 			{
-				console.log(xhr);
-				console.log(statuse);
+				//console.log(xhr);
+				//console.log(statuse);
+				M.toast({html: xhr.responseJSON.message});
 			}
 		}
 	$.ajax(request);

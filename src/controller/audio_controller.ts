@@ -19,9 +19,12 @@ function updateAudio(req, res)
 	{
 		case 0:
 			let ret = file.cut(parseInt(req.body.cutStart), parseInt(req.body.cutEnd));
-			if(ret)
-				return res.json({name: file.name + "_edit." + file.ext});
-			return res.status(500).send("internal server error");
+			if(ret == 0)
+				return res.json({name: file.getName() + "_edit." + file.getExt()});
+			else if(ret == -1)
+				return res.status(500).json({message: "internal server error"});
+			else
+				return res.status(400).json({message: "wrong parameters"});
 			break;
 		default:
 			return null;

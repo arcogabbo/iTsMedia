@@ -13,7 +13,7 @@ export class Image extends Media{
 	}
 
 	init(){
-		this.command=gm(__dirname + "/../../public/files/" + this.name + '.' +this.ext)
+		this.command=gm(__dirname + "/../../public/files/" + this.getName() + '.' +this.getExt())
 	}
 
 	crop(posX:number, posY:number, dimX:number, dimY:number){
@@ -51,7 +51,7 @@ export class Image extends Media{
 	}
 
 	execute(){
-		this.command.write(__dirname + "/../../public/files/" + this.name+'_edit.'+this.ext, (err)=>{
+		this.command.write(__dirname + "/../../public/files/" + this.getName()+'_edit.'+this.getExt(), (err)=>{
 			if(err){
 				console.log('ERRORE SALVATAGGIO EDIT IMMAGINE: '+err)
 				throw err

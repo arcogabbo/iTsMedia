@@ -15,17 +15,14 @@ async function updateDocument(req, res)
 		case "pdf":
 			if(!await file.mdToPdf())
 				return res.status(500).send("internal server error");
-			return res.json({name: file.name + ".pdf"});
-			break;
+			return res.json({name: file.getName() + ".pdf"});
 		case "md":
 			console.log("converting docx to md");
 			if(!await file.docxToMd())
 				return res.status(500).send("internal server error");
-			return res.json({name: file.name + ".md"});
-			break;
+			return res.json({name: file.getName() + ".md"});
 		default:
 			return res.status(400).send("cannot convert file");
-			break;
 	}
 }
 

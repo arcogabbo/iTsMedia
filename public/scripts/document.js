@@ -38,6 +38,11 @@ function convert()
                     a.className="btn deep-orange darken-2"
                     document.getElementById("anchor").appendChild(a);
                  }
+				else
+				{
+					let a = document.getElementById("link");
+					a.href = "/download/" + result.name;
+				}
 			},
 			error: function(){console.log("error")}
 		}
