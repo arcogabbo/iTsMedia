@@ -1,10 +1,9 @@
-import express from 'express';
-import fileUpload from 'express-fileupload';
-import path from "path";
+import express from 'express'
+import fileUpload from 'express-fileupload'
+import path from "path"
 import dotenv from "dotenv"
 
 dotenv.config({path: './src/.env'})
-
 
 //routing
 import home_routes from './routes/home_routes';

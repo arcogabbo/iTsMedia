@@ -25,6 +25,7 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.7",
     "shelljs": "^0.8.4",
+    "toad-scheduler": "^1.3.0",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.2"
   },
