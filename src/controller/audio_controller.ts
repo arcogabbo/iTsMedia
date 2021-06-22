@@ -22,7 +22,6 @@ function updateAudio(req, res)
 			if(ret)
 				return res.json({name: file.name + "_edit." + file.ext});
 			return res.status(500).send("internal server error");
-			break;
 		default:
 			return null;
 	}
