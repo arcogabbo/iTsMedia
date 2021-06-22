@@ -86,8 +86,12 @@ function cliFile(req, res)
 	res.status(200).send(newName + "." + name[1].toLowerCase());
 }
 
-function getFeedback(req,res){
-	res.render("feedbackPage.ejs")
+async function getFeedback(req,res){
+	//getting reviews and showing it to the users
+	let result=await db.getReviews()
+	let obj= result != undefined ? result:undefined
+	console.log(obj)
+	res.render("feedbackPage.ejs",{obj})
 }
 
 async function postFeedback(req,res){

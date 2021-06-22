@@ -29,6 +29,38 @@
 				<input id="send-button" class="waves-effect waves-light btn deep-orange darken-2" type='submit' value='Send' />
 			</div>
 		</div>
+
+		<% if(obj){ %>
+		<table class="centered striped">
+			<thead class="blue-grey darken-3">
+				<tr>
+					<th>Title</th>
+					<th>Feedback</th>
+					<th>Star rating</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody class="grey lighten-1 black-text">
+				<% for(let i=0;i < obj.length;i++)
+				 	{ %>
+				 	<tr>
+				 		<td><%= obj[i].title %></td>
+				 		<td><%= obj[i].review %></td>
+				 		<td>
+				 			<% if(obj[i].star) { %>
+				 				<%= obj[i].star %>
+				 			<% }else { %>
+				 				MISSING
+				 			<% } %>
+				 		</td>
+				 		<td><%= obj[i].review_date %></td>
+				 	</tr>
+				<%	} %>
+
+			</tbody>
+		</table>
+		<% } %>
+		
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

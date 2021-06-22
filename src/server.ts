@@ -17,7 +17,7 @@ app.listen(process.env.PORT, () => {
 
 
 process.on('SIGINT',()=>{
-	console.log("\nRicevuto SIGINT, chiudo il db e termino in pace...")
+	console.log("\nRicevuto SIGINT, chiudo lo scheduler e termino in pace...")
 	//chiudo lo scheduler
 	scheduler.stop()
 	process.exit(0)
