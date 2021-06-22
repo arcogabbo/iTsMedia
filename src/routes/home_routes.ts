@@ -37,6 +37,9 @@ async function checkType(req, res)
 			break;
 		case "md":
 		case"docx":
+		case"html":
+		case"json":
+		case"gfm":
 			await document_controller.updateDocument(req, res);
 			break;
 		default:

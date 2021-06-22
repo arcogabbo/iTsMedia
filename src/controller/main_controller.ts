@@ -40,6 +40,9 @@ function modifyPage(req: any, res: any)
 			break;
 		case "md":
 		case "docx":
+		case "gfm":
+		case "html":
+		case "json":
 			res.render("document.ejs", obj);
 			break;
 		default:
