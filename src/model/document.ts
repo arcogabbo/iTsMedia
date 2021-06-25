@@ -11,17 +11,11 @@ export class Document extends Media
 		this.fullName = __dirname + "/../../public/files/" + this.getName();
 	}	
 
-	public async toPdf()
-	{
-		let command = `pandoc ${__dirname + "/../../public/files/" + this.getName() + "." + this.getExt()} --pdf-engine=pdflatex -o ${__dirname + "/../../public/files/" + this.getName()  + ".pdf"}`;
-		return await this.execCommand(command);
-	}
-
 	//every file is converted to markdown as a middle language and then
 	//the markdown file is converted.
 	public async toMd()
 	{
-		let command = `pandoc -s ${this.fullName + "." + this.getExt()} -t markdown -o ${this.fullName+".md"}`
+		let command = `pandoc --extract-media ${"public/files/" + this.getName()} -s ${this.fullName + "." + this.getExt()} -t markdown -o ${this.fullName+".md"}`
 		return await this.execCommand(command);
 	}
 

@@ -25,6 +25,12 @@ process.on('SIGINT',()=>{
 
 
 function scheduledTask(){
+	let dir = shell.exec(`find ${__dirname + "/../public/files/"} -type d -mtime +1 -exec rm -rf {} +`);
+	if(dir.code != 0)
+		console.error(`scheduler failed to delete directories return code ${dir.code}, output: ${dir.stdout}`);
+	else{
+		console.log(`Scheduler successfully deleted older directories, output: ${dir.stdout}`);
+	}
 	//delete all pics from the last day
 	let res=shell.exec(`find ${__dirname+ "/../public/files/"} -type f -mtime +1 -delete`,{silent:true, shell:"/bin/bash"})
 	if(res.code != 0){
