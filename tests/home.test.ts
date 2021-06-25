@@ -64,4 +64,14 @@ describe("PUT", () => {
 		const result=await request.put('/file')
 		expect(result.statusCode).toEqual(400)
 	})
+
+	it('No actions on img test',async()=>{
+		let result=await request.post('/file').attach('toUpload',__dirname+'/images/light.jpg')
+		//payload OK
+		expect(result.statusCode).toEqual(200)
+
+		//if a filename is passed but no actions are provided the original image is returned
+		result=await request.put("/file").type("form").send({fileName: "8088a60c5aa3a645eecde964eb14d306.jpg"})
+		expect(result.statusCode).toEqual(200)
+	})
 })

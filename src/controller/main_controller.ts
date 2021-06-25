@@ -2,11 +2,12 @@ import { Router } from "express";
 import session from "express-session";
 import {Media} from "../model/media";
 import fs from "fs";
+import {DbReview} from "../model/review"
+
 //this function try to upload the file in the "files" directory
 //then if succed will render to the page where the user can modify it
-function modifyPage(req, res)
+function modifyPage(req: any, res: any)
 {
-	//var sess = {secret: "change me"}
 	//loading the file
 	if(!req.files || !req.files.toUpload)
 		return res.status(400).send("No file uploaded");
@@ -23,8 +24,8 @@ function modifyPage(req, res)
 	let file = new Media(toUp, newName, name[1]);
 	file.save();
 	//depending on the file type the user is redirected to a page
-	let obj = {fileName: newName + "." + name[1].toLowerCase()}
-	switch (file.ext)
+	let obj = {fileName: newName + "." + name[1].toLowerCase(), ext:name[1]}
+	switch (file.getExt())
 	{
 		case "jpeg":
 		case "png":
@@ -32,7 +33,17 @@ function modifyPage(req, res)
 			res.render("imgPage.ejs", obj);
 			break;
 		case "mp3":
-			res.render("audioPage.ejs", obj);
+		case "mp4":
+		case "ogg":
+		case "mkv":
+			res.render("audioVideoPage.ejs", obj);
+			break;
+		case "md":
+		case "docx":
+		case "gfm":
+		case "html":
+		case "json":
+			res.render("document.ejs", obj);
 			break;
 		default:
 			res.status(400).send("Unsupported file");
@@ -50,7 +61,7 @@ function downloadFile(req, res)
 {
 	let file = __dirname + "/../../public/files/" + req.params.filename;
 	//md5 is 32 chars wide but we always download the _edit one -> 37 chars
-	if(req.params.filename.length < 37 || !fs.existsSync(file))
+	if(req.params.filename.length < 32 || !fs.existsSync(file))
 		return res.status(404).send("file not found");
 	
 	res.download(file);
@@ -74,7 +85,35 @@ function cliFile(req, res)
 	let file = new Media(toUp, newName, name[1]);
 	file.save();
 
-	if(file.ext == undefined) return res.status(400).send("Unsupported file")
+	if(file.getExt() == undefined) return res.status(400).send("Unsupported file")
 	res.status(200).send(newName + "." + name[1].toLowerCase());
 }
-export {downloadFile, modifyPage, home, cliFile}
+
+async function getFeedback(req,res){
+	let db=new DbReview()
+	//getting reviews and showing it to the users
+	let result=await db.getReviews()
+	let obj= result != undefined ? result:undefined
+	res.render("feedbackPage.ejs",{obj})
+}
+
+async function postFeedback(req,res){
+	if(!req.body.title || !req.body.content) return res.status(400).send("Title or content missing")
+	if(req.body.title.length > 20 || req.body.content.length > 150) return res.status(400).send("Max length reached")
+	
+	if(!req.body.star){
+		req.body.star=null
+	}else if(req.body.start < 1 || req.body.star > 5 ){
+		return res.status(400).send("Star rating must be between 1 and 5")
+	}
+
+	let db=new DbReview()
+	let result=await db.insertReview(req.body.title,req.body.content,req.body.star)
+	if(result){
+		res.json({message:'The feedback has been sent, thanks.'})
+	}else{
+		res.status(500).json({message:'Whoops, the feedback went missing on the internet'})
+	}
+}
+
+export {downloadFile, modifyPage, home, cliFile, getFeedback, postFeedback}

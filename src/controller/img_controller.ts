@@ -3,18 +3,23 @@ import {parse} from "../model/image";
 
 function updateImg(req, res)
 {
-	if(!req.body.fileName || !req.body.id) return res.status(400).send("Bad request")
+	if(!req.body.fileName) return res.status(400).send("Filename mancante")
 	let name = req.body.fileName.split(".");
 	if(name.length != 2) return res.status(400).send("Incorrect filename")
 	
 	let img = parse("../../public/files/", name[0], name[1]);
+	if(!req.body.id)
+	{
+		img.execute()
+		return res.status(200).json({name: img.getName()  + "_edit" + "." + img.getExt()});
+	}
 	for(let i = 0; i < req.body.id.length; i++)
 	{
 		switch (parseInt(req.body.id[i]))
 		{
 			case 0:
-				if(!req.body.X || !req.body.Y) return res.status(400).send("Wrong resize parameters")
-				img.resize(parseInt(req.body.X), parseInt(req.body.Y));
+				if(!req.body.sizeX || !req.body.sizeY) return res.status(400).send("Wrong resize parameters")
+				img.resize(parseInt(req.body.sizeX), parseInt(req.body.sizeY));
 				break;
 			case 1:
 				if(req.body.cropX == 0 || req.body.cropY == 0) return res.status(400).send("Wrong geometry")
@@ -37,19 +42,20 @@ function updateImg(req, res)
 				img.flop()
 				break;
 			case 6:
-				if(!req.body.gammaValueSlider) res.status(400).send("Missing gamma value")
+				if(!req.body.gammaValueSlider) return res.status(400).send("Missing gamma value")
+				if(parseFloat(req.body.gammaValueSlider) < 0.5 || parseFloat(req.body.gammaValueSlider) > 2.5) return res.status(400).send("Gamma value exceed range")
 				img.gamma(parseFloat(req.body.gammaValueSlider))
 				break;
 			case 7:
 				img.normalize()
 				break;
 			default:
-				res.status(400).send("Action not implemented")
+				return res.status(400).send("Action not implemented")
 		}
 	}
 	//execute the command
 	img.execute()
-	res.status(200).json({name: img.name  + "_edit" + "." + img.ext});
+	res.status(200).json({name: img.getName()  + "_edit" + "." + img.getExt()});
 }
 
 export {updateImg}

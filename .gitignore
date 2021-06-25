@@ -1,4 +1,6 @@
 node_modules/*
+cli/node_modules/*
 public/files/*
 public/materialize/*
 *.swp
+*.env

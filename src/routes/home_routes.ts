@@ -2,6 +2,7 @@ import { Router } from 'express';
 import * as mainController from "../controller/main_controller";
 import * as img_controller from "../controller/img_controller";
 import * as audio_controller from "../controller/audio_controller";
+import * as document_controller from "../controller/document_controller";
 const router=Router()
 
 //rendering to the home page
@@ -12,7 +13,10 @@ router.post("/file", mainController.modifyPage);
 router.put("/file", checkType);
 router.get("/download/:filename", mainController.downloadFile);
 
-function checkType(req, res)
+router.get('/feedback',mainController.getFeedback)
+router.post('/feedback',mainController.postFeedback)
+
+async function checkType(req, res)
 {
 	if(!req.body.fileName)
 		return res.status(400).send("file name missing");
@@ -26,7 +30,17 @@ function checkType(req, res)
 			img_controller.updateImg(req, res);
 			break;
 		case "mp3":
+		case "mp4":
+		case "ogg":
+		case "mkv":
 			audio_controller.updateAudio(req, res);
+			break;
+		case "md":
+		case"docx":
+		case"html":
+		case"json":
+		case"gfm":
+			await document_controller.updateDocument(req, res);
 			break;
 		default:
 			res.status(400).send("bad request");
