@@ -27,6 +27,11 @@ export class Document extends Media
 
 	public async convert(ext)
 	{
+		//the intermediate file is already in markdown, no further passages are required
+		if(ext === "md"){
+			return true
+		}
+		
 		let command = `pandoc -s ${this.fullName + ".md"} -o ${this.fullName + "." + ext}`;
 		return await this.execCommand(command);
 	}
