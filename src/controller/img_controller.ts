@@ -3,7 +3,7 @@ import {parse} from "../model/image";
 
 function updateImg(req, res)
 {
-	if(!req.body.fileName) return res.status(400).send("Bad request")
+	if(!req.body.fileName) return res.status(400).send("Filename mancante")
 	let name = req.body.fileName.split(".");
 	if(name.length != 2) return res.status(400).send("Incorrect filename")
 	
@@ -11,7 +11,7 @@ function updateImg(req, res)
 	if(!req.body.id)
 	{
 		img.execute()
-		return res.status(200).json({name: img.name  + "_edit" + "." + img.ext});
+		return res.status(200).json({name: img.getName()  + "_edit" + "." + img.getExt()});
 	}
 	for(let i = 0; i < req.body.id.length; i++)
 	{
@@ -42,8 +42,8 @@ function updateImg(req, res)
 				img.flop()
 				break;
 			case 6:
-				if(!req.body.gammaValueSlider) res.status(400).send("Missing gamma value")
-				if(parseInt(req.body.gammaValueSlider) < 0.5 || parseInt(req.body.gammaValueSlider) > 2.5) res.status(400).send("Gamma value exceed range")
+				if(!req.body.gammaValueSlider) return res.status(400).send("Missing gamma value")
+				if(parseFloat(req.body.gammaValueSlider) < 0.5 || parseFloat(req.body.gammaValueSlider) > 2.5) return res.status(400).send("Gamma value exceed range")
 				img.gamma(parseFloat(req.body.gammaValueSlider))
 				break;
 			case 7:
@@ -55,7 +55,7 @@ function updateImg(req, res)
 	}
 	//execute the command
 	img.execute()
-	res.status(200).json({name: img.name  + "_edit" + "." + img.ext});
+	res.status(200).json({name: img.getName()  + "_edit" + "." + img.getExt()});
 }
 
 export {updateImg}

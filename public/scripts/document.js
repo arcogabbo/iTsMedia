@@ -2,27 +2,11 @@ let select = document.getElementById("outputTypes");
 let fileName = document.getElementById("fileName").innerHTML;
 document.getElementById("btnConvert").addEventListener("click", convert);
 var ext = document.getElementById("ext").innerHTML;
-checkTypes();
-function checkTypes()
-{
-	switch (ext)
-	{
-		case "md":
-			select.append(createOption("pdf"));
-			break;
-		case "docx":
-			select.append(createOption("md"));
-			select.append(createOption("pdf"));
-			break;
-		default:
-			console.log("unsupported extension");
-			break;
-	}
-}
 
 function convert()
 {
-	let newExt = $("#outputTypes :selected").attr("id")
+	let newExt = $("#outputTypes :selected").html();
+	console.log(newExt);
 	let request = 
 		{
 			url: "/file",
@@ -38,17 +22,13 @@ function convert()
                     a.className="btn deep-orange darken-2"
                     document.getElementById("anchor").appendChild(a);
                  }
+				else
+				{
+					let a = document.getElementById("link");
+					a.href = "/download/" + result.name;
+				}
 			},
 			error: function(){console.log("error")}
 		}
 	$.ajax(request);
-}
-
-function createOption(val)
-{
-	let opt = document.createElement("option");
-	opt.text = val;	
-	opt.innerText = val;
-	opt.setAttribute("id", val);
-	return opt;
 }

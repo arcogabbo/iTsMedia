@@ -1,13 +1,13 @@
 import type ef from "express-fileupload"
 import fs from "fs"
 
-export type extension= "jpeg" | "jpg" | "png" | "mp3" | "mp4" | "ogg" | "mkv" | "docx" | "md" |undefined //to extend as releases goes on
+export type extension= "jpeg" | "jpg" | "png" | "mp3" | "mp4" | "ogg" | "mkv" | "docx" | "md" | "html" | "gfm" | "json" | undefined //to extend as releases goes on
 
 export class Media{
-	name: string
-	ext: extension
-	sizeInBytes: number
-	file: ef.UploadedFile | undefined
+	private name: string
+	private ext: extension
+	private sizeInBytes: number
+	private file: ef.UploadedFile | undefined
 
 	constructor(file: ef.UploadedFile | string, id: string, extension: string){
 		if(typeof(file) === "string"){
@@ -42,7 +42,14 @@ export class Media{
 			})
 		}
 	}
+
+	public getName(): string{return this.name}
+	public getExt(): extension{return this.ext}
+	public getSize(): number{return this.sizeInBytes}
+	public getFile(){return this.file}
+
 }
+
 
 export function check(s: string): extension{
 	switch(s.toLowerCase()){
@@ -64,6 +71,12 @@ export function check(s: string): extension{
 			return "ogg"
 		case "mkv":
 			return "mkv"
+		case "html":
+			return "html";
+		case "gfm":
+			return "gfm";
+		case "json":
+			return "json";
 		default:
 			return undefined
 	}

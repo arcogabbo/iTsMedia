@@ -6,7 +6,7 @@ import {DbReview} from "../model/review"
 
 //this function try to upload the file in the "files" directory
 //then if succed will render to the page where the user can modify it
-function modifyPage(req, res)
+function modifyPage(req: any, res: any)
 {
 	//loading the file
 	if(!req.files || !req.files.toUpload)
@@ -25,7 +25,7 @@ function modifyPage(req, res)
 	file.save();
 	//depending on the file type the user is redirected to a page
 	let obj = {fileName: newName + "." + name[1].toLowerCase(), ext:name[1]}
-	switch (file.ext)
+	switch (file.getExt())
 	{
 		case "jpeg":
 		case "png":
@@ -40,6 +40,9 @@ function modifyPage(req, res)
 			break;
 		case "md":
 		case "docx":
+		case "gfm":
+		case "html":
+		case "json":
 			res.render("document.ejs", obj);
 			break;
 		default:
@@ -82,7 +85,7 @@ function cliFile(req, res)
 	let file = new Media(toUp, newName, name[1]);
 	file.save();
 
-	if(file.ext == undefined) return res.status(400).send("Unsupported file")
+	if(file.getExt() == undefined) return res.status(400).send("Unsupported file")
 	res.status(200).send(newName + "." + name[1].toLowerCase());
 }
 

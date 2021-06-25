@@ -8,33 +8,31 @@ export class Document extends Media
 	constructor(f: ef.UploadedFile | string, id: string, extension: string)
 	{
 		super(f, id, extension);
-		this.fullName = __dirname + "/../../public/files/" + this.name;
+		this.fullName = __dirname + "/../../public/files/" + this.getName();
 	}	
 
-	public async mdToPdf()
+	public async toPdf()
 	{
-		let command = `pandoc ${__dirname + "/../../public/files/" + this.name + "." + this.ext} --pdf-engine=pdflatex -o ${__dirname + "/../../public/files/" + this.name  + ".pdf"}`;
+		let command = `pandoc ${__dirname + "/../../public/files/" + this.getName() + "." + this.getExt()} --pdf-engine=pdflatex -o ${__dirname + "/../../public/files/" + this.getName()  + ".pdf"}`;
 		return await this.execCommand(command);
 	}
 
-	public async docxToMd()
+	//every file is converted to markdown as a middle language and then
+	//the markdown file is converted.
+	public async toMd()
 	{
-		let command = `pandoc -s ${this.fullName + "." + this.ext} -t markdown -o ${this.fullName+".md"}`
+		let command = `pandoc -s ${this.fullName + "." + this.getExt()} -t markdown -o ${this.fullName+".md"}`
 		return await this.execCommand(command);
 	}
 
-	//the docx file needs to be converted into a markdown before
-	public async docxToPdf()
+	public async convert(ext)
 	{
-		if(await this.docxToMd())
-			if(await this.mdToPdf())
-				return true;
-		return false;
+		let command = `pandoc -s ${this.fullName + ".md"} -o ${this.fullName + "." + ext}`;
+		return await this.execCommand(command);
 	}
 
 	private async execCommand(command: string):Promise<boolean>
 	{
-		console.log("converting " + this.fullName)
 		let p = new Promise((resolve, reject)=>
 			{
 				shell.exec(command, {silent: false, shell: "/bin/bash"}, (code, stdout, stderr)=>{
@@ -47,8 +45,6 @@ export class Document extends Media
 
 		if(!await p)
 			return false;	
-
 		return true;
-
 	}
 }

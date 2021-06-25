@@ -8,25 +8,14 @@ async function updateDocument(req, res)
 	let path = "../../public/files/";
 	let name = req.body.fileName.split(".");
 	let file = new Document(path, name[0], name[1]);
-	console.log(req.body.ext);
 
-	switch (req.body.ext.toLowerCase())
-	{
-		case "pdf":
-			if(!await file.mdToPdf())
-				return res.status(500).send("internal server error");
-			return res.json({name: file.name + ".pdf"});
-			break;
-		case "md":
-			console.log("converting docx to md");
-			if(!await file.docxToMd())
-				return res.status(500).send("internal server error");
-			return res.json({name: file.name + ".md"});
-			break;
-		default:
-			return res.status(400).send("cannot convert file");
-			break;
-	}
+	if(!await file.toMd())
+		return res.json({message: "cannot convert to markdown"})
+
+	if(!await file.convert(req.body.ext))
+		return res.json({message: "cannot convert file"})
+
+	return res.json({name: file.getName() + "." + req.body.ext});
 }
 
 export {updateDocument}

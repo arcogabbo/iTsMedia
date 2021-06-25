@@ -12,12 +12,13 @@ export class AudioVideo extends Media
 		this.length = length;
 	}
 
+	//return -1 for internal server error, 0 for ok, 1 for wrong parameters
 	public cut(start: number, end: number)
 	{
 		if(start < 0 || end > this.length || (end-start)<= 0)
-			return false;
+			return 1;
 
-		let newName = __dirname + "/../../public/files/" + this.name + "_edit." + this.ext;
+		let newName = __dirname + "/../../public/files/" + this.getName() + "_edit." + this.getExt();
 		let result = shell.exec(`ffmpeg -y -i ${newName.replace("_edit", "")} -ss ${start} -to ${end} ${newName}`, {silent:true, shell: "/bin/bash"});
 
 		if(result.code!= 0)
@@ -25,8 +26,8 @@ export class AudioVideo extends Media
 			console.log(result.code);
 			console.log(result.stdout);
 			console.log("cannot cut the audio or video");
-			return false;
+			return -1;
 		}
-		return true;
+		return 0;
 	} 
 }
