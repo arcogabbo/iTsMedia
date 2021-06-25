@@ -10,10 +10,10 @@ async function updateDocument(req, res)
 	let file = new Document(path, name[0], name[1]);
 
 	if(!await file.toMd())
-		return res.json({message: "cannot convert to markdown"})
+		return res.status(500).json({message: "Internal server error"})
 
 	if(!await file.convert(req.body.ext))
-		return res.json({message: "cannot convert file"})
+		return res.status(500).json({message: "Internal server error"})
 
 	return res.json({name: file.getName() + "." + req.body.ext});
 }

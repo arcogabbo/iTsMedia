@@ -22,8 +22,12 @@ export class DbItem{
 			})
 		})
 
-		let result=await myPromise
-		return result ? result:undefined
+		try{
+			let result=await myPromise
+			return result
+		}catch{
+			return undefined
+		}
 	}
 
 	public getPool(){

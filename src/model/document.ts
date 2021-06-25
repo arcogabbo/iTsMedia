@@ -43,8 +43,11 @@ export class Document extends Media
 				}
 				)})
 
-		if(!await p)
-			return false;	
-		return true;
+		try{
+			let r=await p
+			return true
+		}catch{
+			return false
+		}
 	}
 }

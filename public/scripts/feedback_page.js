@@ -19,9 +19,7 @@ function sendFeedback(){
 			M.toast({text:result.message})
 		},
 		error:(xhr,status,error)=>{
-			console.error("ERRORE INVIO FEEDBACK: "+error)
-			console.log(xhr)
-			M.toast({text:xhr.responseText})
+			M.toast({text:xhr.responseJSON.message})
 		}
 	})
 }

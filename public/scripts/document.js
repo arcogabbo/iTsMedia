@@ -6,7 +6,6 @@ var ext = document.getElementById("ext").innerHTML;
 function convert()
 {
 	let newExt = $("#outputTypes :selected").html();
-	console.log(newExt);
 	let request = 
 		{
 			url: "/file",
@@ -28,7 +27,11 @@ function convert()
 					a.href = "/download/" + result.name;
 				}
 			},
-			error: function(){console.log("error")}
+			error: function(xhr){
+				console.log("error")
+				console.log(xhr)
+				M.toast({text:xhr.responseJSON.message})
+			}
 		}
 	$.ajax(request);
 }

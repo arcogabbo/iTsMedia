@@ -44,7 +44,7 @@ function cutFile(id)
 			{
 				//console.log(xhr);
 				//console.log(statuse);
-				M.toast({html: xhr.responseJSON.message});
+				M.toast({text: xhr.responseJSON.message});
 			}
 		}
 	$.ajax(request);
