@@ -2,7 +2,7 @@ import { Router } from "express";
 import session from "express-session";
 import {Media} from "../model/media";
 import fs from "fs";
-import * as db from "../model/review"
+import {DbReview} from "../model/review"
 
 //this function try to upload the file in the "files" directory
 //then if succed will render to the page where the user can modify it
@@ -87,10 +87,10 @@ function cliFile(req, res)
 }
 
 async function getFeedback(req,res){
+	let db=new DbReview()
 	//getting reviews and showing it to the users
 	let result=await db.getReviews()
 	let obj= result != undefined ? result:undefined
-	console.log(obj)
 	res.render("feedbackPage.ejs",{obj})
 }
 
@@ -104,8 +104,8 @@ async function postFeedback(req,res){
 		return res.status(400).send("Star rating must be between 1 and 5")
 	}
 
+	let db=new DbReview()
 	let result=await db.insertReview(req.body.title,req.body.content,req.body.star)
-
 	if(result){
 		res.json({message:'The feedback has been sent, thanks.'})
 	}else{
