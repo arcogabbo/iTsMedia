@@ -11,6 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-crypto/util": "^2.0.1",
+    "@aws-sdk/util-body-length-browser": "^3.49.0",
+    "@aws-sdk/util-user-agent-node": "^3.49.0",
+    "@sentry/hub": "^6.16.1",
+    "@sentry/node": "^6.18.1",
+    "@sentry/tracing": "^6.16.1",
     "@types/express-fileupload": "^1.1.6",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
